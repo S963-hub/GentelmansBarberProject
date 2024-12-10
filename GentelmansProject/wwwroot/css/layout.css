@@ -1,0 +1,178 @@
+﻿/* Genel Ayarlar */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* Navbar */
+.navbar {
+    background-color: #343a40;
+    padding: 1rem;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.navbar-nav .nav-link {
+    color: #d3d3d3;
+    font-weight: 500;
+    margin-left: 1rem;
+    transition: color 0.3s;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #fff;
+    }
+
+/* Hero Bölümü */
+.hero-section {
+    margin-top : 100px;
+    height: 600px;
+    background-color: #343a40; /* Koyu arka plan */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-text {
+    max-width: 500px; /* Metin bloğu genişliğini sınırla */
+}
+
+.hero-image img {
+    max-width: 100%; /* Görselin taşmasını engeller */
+    border-radius: 15px; /* Yuvarlatılmış köşe efekti */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
+}
+
+
+
+
+
+section div h2 {
+    margin-top : 70px;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column; /* Mobil cihazlar için sütun düzeni */
+        text-align: center;
+    }
+
+    .hero-text,
+    .hero-image {
+        max-width: 100%;
+    }
+
+        .hero-image img {
+            margin-top: 1rem;
+        }
+}
+
+/* Hizmet Kartları */
+.services {
+    padding: 4rem 0;
+}
+
+    .services h2 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        color: #333;
+        text-align: center;
+    }
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.125); /* Hafif çerçeve */
+    border-radius: 12px; /* Yuvarlak köşeler */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    overflow: hidden; /* Kart dışına taşmaları engeller */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover animasyonu */
+    background: #fff; /* Beyaz arka plan */
+}
+
+    .card:hover {
+        transform: scale(1.05); /* Hover sırasında büyüme efekti */
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2); /* Daha belirgin gölge */
+    }
+
+.card-img-top {
+    height: 180px; /* Sabit resim yüksekliği */
+    object-fit: cover; /* Resmin taşmadan uyum sağlaması */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125); /* Resim ile içerik arasında ince çizgi */
+}
+
+.card-title {
+    font-size: 1.3rem; /* Daha dikkat çekici başlık */
+    font-weight: 700; /* Kalın metin */
+    margin-bottom: 10px; /* Başlık altına boşluk */
+    color: #2c3e50; /* Modern bir koyu ton */
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+    overflow: hidden; /* Taşmayı engeller */
+    text-overflow: ellipsis; /* Üç nokta koyar */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Maksimum 2 satır gösterir */
+    -webkit-box-orient: vertical;
+}
+.card-body {
+    padding: 20px;
+    text-align: center; /* Merkezi hizalama */
+}
+
+    .card-body a {
+        text-decoration: none; /* Link alt çizgisi kaldırıldı */
+        color: #007bff; /* Link rengi */
+        font-weight: 600;
+    }
+
+        .card-body a:hover {
+            color: #0056b3; /* Hover sırasında daha koyu mavi */
+        }
+
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 1.5rem 0;
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer p a {
+    color: #28a745;
+    font-weight: bold;
+}
+
+footer p a:hover {
+    color: #fff;
+}

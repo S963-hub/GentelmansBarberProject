@@ -1,0 +1,42 @@
+﻿@model KuaforBerberApp.Models.RandevuAlViewModel
+
+<form asp-action="RandevuAl" method="post">
+    <div class="form-group">
+        <label asp-for="Randevu.MusteriAdi"></label>
+        <input asp-for="Randevu.MusteriAdi" class="form-control" />
+        <span asp-validation-for="Randevu.MusteriAdi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SeciliIslemTuruId"></label>
+        <select asp-for="SeciliIslemTuruId" class="form-control" asp-items="Model.IslemTurleri"></select>
+        <span asp-validation-for="SeciliIslemTuruId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Randevu.Ucret"></label>
+        <input asp-for="Randevu.Ucret" class="form-control" />
+        <span asp-validation-for="Randevu.Ucret" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Randevu.Sure"></label>
+        <input asp-for="Randevu.Sure" class="form-control" />
+        <span asp-validation-for="Randevu.Sure" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Randevu.RandevuTarihi"></label>
+        <input asp-for="Randevu.RandevuTarihi" class="form-control" />
+        <span asp-validation-for="Randevu.RandevuTarihi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Randevu.CalisanAdi"></label>
+        <input asp-for="Randevu.CalisanAdi" class="form-control" />
+        <span asp-validation-for="Randevu.CalisanAdi" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Randevu Al</button>
+</form>
+
