@@ -1,132 +1,52 @@
 ﻿<!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GentelmansProject</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/layout.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - crud1</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/crud1.styles.css" asp-append-version="true" />
 </head>
 <body>
-    @RenderBody()
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">crud1</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PriceSelect">Price Select</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <a class="navbar-brand fw-bold" href="@Url.Action("Index", "Home")">Gentelmans Barber</a>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Anasayfa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Randevu Al</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Yapay Zeka</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Servis</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
-                </ul>
-            </div>
+            &copy; 2024 - crud1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container text-white py-5 d-flex align-items-center justify-content-between">
-            <!-- Sol Taraf: Metin -->
-            <div class="hero-text col-md-6 text-center text-md-start">
-                <h1 class="display-4 fw-bold">Şehrinizdeki Kuaför İhtiyaçlarınız</h1>
-                <p class="lead">Gentelmans Barber ile profesyonel bakım ve stil şimdi bir tık uzağınızda.</p>
-                <div class="mt-4">
-                    <a href="#" class="btn btn-success btn-lg me-2">Randevu Al</a>
-                    <a href="#" class="btn btn-outline-light btn-lg">Videoyu İzle</a>
-                </div>
-            </div>
-            <!-- Sağ Taraf: Görsel -->
-            <div class="hero-image col-md-6 text-center">
-                <img src="images/firstpicture.jpg" alt="Kuaför Hizmeti" class="img-fluid rounded shadow">
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Services Section -->
-    <section class="services py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-4">Hizmetlerimiz</h2>
-            <div class="row g-4">
-                <!-- Service Item 1 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="images/picture1.jpg" class="card-img-top" alt="Hizmet 1">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Saç Kesimi</h5>
-                            <p class="card-text">Tarzınıza uygun profesyonel saç kesimi hizmeti.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Service Item 2 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="images/picture2.jpg" class="card-img-top" alt="Hizmet 2">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Tıraş</h5>
-                            <p class="card-text">Kusursuz tıraş deneyimi için uzman ellerde olun.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Service Item 3 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="images/picture3.jpg" class="card-img-top" alt="Hizmet 5">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Keratin Bakımı</h5>
-                            <p class="card-text">Saçlarınıza parlaklık ve güç kazandırmak için keratin bakımı yapılır.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Service Item 4 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="images/picture4.jpg" class="card-img-top" alt="Hizmet 4">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Sakal Bakımı</h5>
-                            <p class="card-text">Sakalınıza hak ettiği özeni gösterin.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="images/picture5.jpg" class="card-img-top" alt="Hizmet 5">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Saç Boyama</h5>
-                            <p class="card-text">saçlarınızı renklere boya hizmet sunulur.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="images/picture6.jpg" class="card-img-top" alt="Hizmet 5">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Cilt Bakımı</h5>
-                            <p class="card-text">Yüzünüzdeki cilt problemlerine yönelik temizleme </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; 2024 GentelmansProject | Tüm Hakları Saklıdır.</p>
     </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

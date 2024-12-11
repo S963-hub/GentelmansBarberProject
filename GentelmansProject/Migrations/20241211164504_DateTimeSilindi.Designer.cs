@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GentelmansProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241209161719_one")]
-    partial class one
+    [Migration("20241211164504_DateTimeSilindi")]
+    partial class DateTimeSilindi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,16 +48,13 @@ namespace GentelmansProject.Migrations
                     b.ToTable("Berbers");
                 });
 
-            modelBuilder.Entity("GentelmansProject.Models.Kullancilar", b =>
+            modelBuilder.Entity("GentelmansProject.Models.Kullanci", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreateData")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -69,7 +66,7 @@ namespace GentelmansProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kullancilars");
+                    b.ToTable("Kullancis");
                 });
 
             modelBuilder.Entity("GentelmansProject.Models.Randevular", b =>

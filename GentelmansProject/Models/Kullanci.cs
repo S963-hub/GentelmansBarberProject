@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GentelmansProject.Models
 {
-    public class Kullancilar
+    public class Kullanci
     {
         public int Id { get; set; }
 
@@ -14,7 +14,7 @@ namespace GentelmansProject.Models
         [Required(ErrorMessage = "Bu alan Zorunludur")]
         public string Password { get; set; } = string.Empty;
 
-        public DateTime CreateData { get; set; } = DateTime.Now;
+      //public DateTime CreateData { get; set; } = DateTime.Now;
 
     }
 

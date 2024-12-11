@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace GentelmansProject.Migrations
 {
-    public partial class one : Migration
+    public partial class once : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,7 +26,7 @@ namespace GentelmansProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Kullancilars",
+                name: "Kullancis",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -37,7 +37,7 @@ namespace GentelmansProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Kullancilars", x => x.Id);
+                    table.PrimaryKey("PK_Kullancis", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,7 +79,7 @@ namespace GentelmansProject.Migrations
                 name: "Berbers");
 
             migrationBuilder.DropTable(
-                name: "Kullancilars");
+                name: "Kullancis");
 
             migrationBuilder.DropTable(
                 name: "Randevulars");

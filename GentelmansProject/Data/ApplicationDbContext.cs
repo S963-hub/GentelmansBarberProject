@@ -11,9 +11,8 @@ namespace GentelmansProject.Data
         {
         }
         public DbSet<Berber> Berbers { get; set; }
-        public DbSet<Kullancilar> Kullancilars { get; set; }
+        public DbSet<Kullanci> Kullancis { get; set; }
         public DbSet<Servis> Servises { get; set; }
         public DbSet<Randevular> Randevulars { get; set; }
-
     }
 }

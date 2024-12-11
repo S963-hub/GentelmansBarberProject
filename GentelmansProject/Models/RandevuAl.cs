@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ge.Models
+namespace GentelmansProject.Models
 {
     public class RandevuAl
     {
@@ -10,11 +10,11 @@ namespace Ge.Models
 
         [Required]
         [Display(Name = "Müşteri Adı")]
-        public string MusteriAdi { get; set; }
-
+        public string? MusteriAdi { get; set; }
+/*
         [Required]
         [Display(Name = "İşlem Türü")]
-        public IslemTuru IslemTuru { get; set; }  // Enum türünde işlem seçimi
+        public IslemTuru IslemTuru { get; set; }  // Enum türünde işlem seçimi*/
 
         [Required]
         [Display(Name = "Ücret")]
@@ -31,8 +31,8 @@ namespace Ge.Models
         public DateTime RandevuTarihi { get; set; }
 
         [Required]
-        [Display(Name = "Kuaför/Çalışan Adı")]
-        public string CalisanAdi { get; set; }
+        [Display(Name = "Kuaför Adı")]
+        public string CalisanAdi { get; set; } = string.Empty;
 
         [Required]
         [Display(Name = "Onay Durumu")]
