@@ -7,14 +7,12 @@ namespace GentelmansProject.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Bu Alan Zorunludur")]
-        [EmailAddress(ErrorMessage = "Lutfen Gecerli Bir Email Adresi Kullanilmalidir")]
-        public string Email { get; set; } = string.Empty;
+        public string Name { get; internal set; } = string.Empty;
 
-        [Required(ErrorMessage = "Bu alan Zorunludur")]
+        public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
 
-      //public DateTime CreateData { get; set; } = DateTime.Now;
+        //public DateTime CreateData { get; set; } = DateTime.Now;
 
     }
 

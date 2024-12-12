@@ -1,12 +1,14 @@
-﻿/* Genel Ayarlar */
-body {
-    font-family: 'Poppins', sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #f8f9fa;
-    color: #333;
+﻿/* Düzenleme: Form kapsayıcısını tam ortalamak için */
+
+/* Form kapsayıcı boyutunun daha iyi oturması için */
+.row {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    max-width: 400px; /* Fazla genişse, azaltıldı */
+    width: 90%; /* Dar ekranlarda daha iyi uyum için */
+    animation: slideIn 0.6s ease-out;
 }
 
 a {

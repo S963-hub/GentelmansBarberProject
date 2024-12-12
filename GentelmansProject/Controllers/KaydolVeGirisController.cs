@@ -44,6 +44,7 @@ namespace GentelmansProject.Controllers
 
             var kullanci = new Kullanci
             {
+                Name = kaydol.Name,
                 Email = kaydol.Email,
                 Password = kaydol.Password,
             };

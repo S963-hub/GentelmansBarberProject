@@ -4,6 +4,9 @@ namespace GentelmansProject.Models
 {
     public class Kaydol
     {
+        [Display(Name = "Username")]
+        [Required(ErrorMessage = "lütfen Adınızı giriniz")]
+        public string Name { get; set; } = string.Empty;
         [Key]
         [Display(Name = "Email Adress")]
         [EmailAddress(ErrorMessage = "lütfen Email fırmatında girdiğinizi emin olnuz. ")]

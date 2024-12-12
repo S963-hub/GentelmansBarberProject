@@ -14,5 +14,6 @@ namespace GentelmansProject.Data
         public DbSet<Kullanci> Kullancis { get; set; }
         public DbSet<Servis> Servises { get; set; }
         public DbSet<Randevular> Randevulars { get; set; }
+        public DbSet<GentelmansProject.Models.Kaydol>? Kaydol { get; set; }
     }
 }
