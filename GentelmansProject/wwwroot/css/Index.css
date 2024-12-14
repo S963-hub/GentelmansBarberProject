@@ -1,16 +1,21 @@
-﻿/* Düzenleme: Form kapsayıcısını tam ortalamak için */
-
-/* Form kapsayıcı boyutunun daha iyi oturması için */
+﻿body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: #333;
+}
 .row {
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
     padding: 40px;
-    max-width: 400px; /* Fazla genişse, azaltıldı */
-    width: 90%; /* Dar ekranlarda daha iyi uyum için */
+    max-width: 2900px;
+    width: 105%;
     animation: slideIn 0.6s ease-out;
 }
-
 a {
     text-decoration: none;
 }
@@ -18,7 +23,6 @@ a {
     a:hover {
         text-decoration: underline;
     }
-
 /* Navbar */
 .navbar {
     background-color: #343a40;
@@ -42,10 +46,9 @@ a {
     .navbar-nav .nav-link:hover {
         color: #fff;
     }
-
 /* Hero Bölümü */
 .hero-section {
-    margin-top : 100px;
+    margin-top: 100px;
     height: 600px;
     background-color: #343a40; /* Koyu arka plan */
     display: flex;
@@ -63,17 +66,9 @@ a {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
 }
 
-
-
-
-
 section div h2 {
-    margin-top : 70px;
+    margin-top: 70px;
 }
-
-
-
-
 
 @media (max-width: 768px) {
     .hero-section {
@@ -90,7 +85,6 @@ section div h2 {
             margin-top: 1rem;
         }
 }
-
 /* Hizmet Kartları */
 .services {
     padding: 4rem 0;
@@ -104,6 +98,7 @@ section div h2 {
         color: #333;
         text-align: center;
     }
+
 .card {
     border: 1px solid rgba(0, 0, 0, 0.125); /* Hafif çerçeve */
     border-radius: 12px; /* Yuvarlak köşeler */
@@ -140,6 +135,7 @@ section div h2 {
     -webkit-line-clamp: 2; /* Maksimum 2 satır gösterir */
     -webkit-box-orient: vertical;
 }
+
 .card-body {
     padding: 20px;
     text-align: center; /* Merkezi hizalama */
@@ -154,8 +150,6 @@ section div h2 {
         .card-body a:hover {
             color: #0056b3; /* Hover sırasında daha koyu mavi */
         }
-
-
 /* Footer */
 footer {
     background-color: #343a40;
@@ -166,15 +160,15 @@ footer {
     margin-top: 2rem;
 }
 
-footer p {
-    margin: 0;
-}
+    footer p {
+        margin: 0;
+    }
 
-footer p a {
-    color: #28a745;
-    font-weight: bold;
-}
+        footer p a {
+            color: #28a745;
+            font-weight: bold;
+        }
 
-footer p a:hover {
-    color: #fff;
-}
+            footer p a:hover {
+                color: #fff;
+            }

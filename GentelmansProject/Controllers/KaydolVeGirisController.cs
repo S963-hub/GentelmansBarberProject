@@ -2,6 +2,8 @@
 using GentelmansProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace GentelmansProject.Controllers
 {
@@ -9,15 +11,10 @@ namespace GentelmansProject.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IWebHostEnvironment environment;
-
         public KaydolVeGirisController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             this.context = context;
             this.environment = environment;
-        }
-        public IActionResult Create()
-        {
-            return View();
         }
 
         [Route("hello")]
@@ -52,7 +49,55 @@ namespace GentelmansProject.Controllers
             context.SaveChanges();
 
 
-            return RedirectToAction("Index", "Giris");
+            return RedirectToAction("Giris", "KaydolVeGiris");
+        }
+
+
+
+            public IActionResult Giris()
+            {
+                return View();
+            }
+            [HttpPost]
+            public IActionResult Giris(int id, Giris G)
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+
+                var user = context.Kullancis.FirstOrDefault(p => p.Email == G.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError("Email", "Bu Email adresi için hesap oluşturulmamıştır.");
+                    return View(G);
+                }
+
+                return Content("Giris yapildi");
+            }
+
         }
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,36 +1,22 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    Layout = "_Layout";
+}
+
+
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GentelmansProject</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/layout.css">
+    <link rel="stylesheet" href="~/css/Index.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <a class="navbar-brand fw-bold" href="@Url.Action("Index", "Home")">Gentelmans Barber</a>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" asp-controller="KaydolVeGiris" asp-action="KullanciOlustur">Giris yap</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Randevu Al</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Yapay Zeka</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Servis</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+  
     <!-- Hero Section -->
     <section class="hero-section">
         <div class="container text-white py-5 d-flex align-items-center justify-content-between">
@@ -120,11 +106,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; 2024 GentelmansProject | Tüm Hakları Saklıdır.</p>
-    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>

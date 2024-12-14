@@ -24,4 +24,6 @@ namespace GentelmansProject.Models
         [Compare("Password", ErrorMessage = "Lütfen yukardaki şifreyi tekrar giriniz. ")]
         public string ConfirmPassword { get; set; } = string.Empty;
     }
+
 }
+

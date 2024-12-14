@@ -1,33 +1,62 @@
-﻿<!DOCTYPE html>
-<!-- Coding By CodingNepal - codingnepalweb.com -->
-<html lang="en">
+﻿@model GentelmansProject.Models.Giris
+
+@{
+    Layout = "_Layout";
+
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/Giris.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login & Registration Form</title>
-    <!---Custom CSS File--->
-    <link rel="stylesheet" href="/css/KullanciOlustur.css">
 </head>
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
     <div class="container">
-        <input type="checkbox" id="check">
-        <div class="login form">
-            <header>Login</header>
-            <form action="#">
-                <input type="text" placeholder="Enter your email">
-                <input type="password" placeholder="Enter your password">
-                <a href="#">Forgot password?</a>
-                <input type="button" class="button" value="Login">
-            </form>
-            <div class="signup">
-                <span class="signup">
-                    Don't have an account?
-                    <label for="check">Signup</label>
-                </span>
+        <input type="checkbox" id="flip">
+        <div class="cover">
+            <div class="back">
+                <img class="backImg" src="~/Images/picture1.jpg" alt="">
+                <div class="text">
+                    <span class="text-1">Complete miles of journey <br> with one step</span>
+                    <span class="text-2">Let's get started</span>
+                </div>
             </div>
         </div>
+        <div class="forms">
+            <div class="form-content">
+                <div class="login-form">
+                    <div class="title">Login</div>
+                    <form asp-controller="KaydolVeGiris" asp-action="Giris">
+                        <div class="input-boxes">
+                            <div class="input-box">
+                                <i class="fas fa-envelope"></i>
+                                <input asp-for="Email" class="form-control" placeholder="Email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="input-box">
+                                <i class="fas fa-lock"></i>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Şifre" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="button input-box">
+                                <input type="submit" value="Sumbit">
+                            </div>
+                            <div class="text sign-up-text">Hesabınız var mı? <a href="/KullanciOlustur">Giriş Yap</a></div>
+                        </div>
+                    </form>
+                </div>
 
+            </div>
+        </div>
     </div>
+
 </body>
 </html>
+

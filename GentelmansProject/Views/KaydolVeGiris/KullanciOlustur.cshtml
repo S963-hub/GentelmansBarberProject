@@ -1,83 +1,86 @@
 ﻿@model GentelmansProject.Models.Kaydol
 
 @{
-    ViewData["Title"] = "KullanciOlustur";
+    Layout = "_Layout";
 }
 
+
 <!DOCTYPE html>
-<html lang="tr">
+<!-- Coding by CodingNepal | www.codingnepalweb.com-->
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GentelmansProject</title>
-    <link rel="stylesheet" href="~/css/KullanciOlustur.css">
-
+    <link rel="stylesheet" href="css/KullanciOlustur.css">
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
 
 
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
-                <a class="navbar-brand fw-bold" href="@Url.Action("Index", "Home")">Gentelmans Barber</a>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" asp-controller="KaydolVeGiris" asp-action="KullanciOlustur">Giris yap</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Randevu Al</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Yapay Zeka</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Servis</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
-                </ul>
+    <div class="container">
+        <input type="checkbox" id="flip">
+        <div class="cover">
+            <div class="front">
+                <div class="text">
+                    <span class="text-1">Every new friend is a <br> new adventure</span>
+                    <span class="text-2">Let's get connected</span>
+                </div>
+            </div>
+            <div class="back">
+                <img class="backImg" src="images/picture1.jpg" alt="">
+ 
             </div>
         </div>
-    </nav>
+        <div class="forms">
+            <div class="form-content">
 
 
+                <div class="signup-form">
+                    <div class="title">Hesap Oluşturunuz</div>
+                    <form asp-controller="KaydolVeGiris" asp-action="KullanciOlustur" method="post">
+                        <div class="input-box">
+                            <i class="fas fa-user"></i>
+                            <input asp-for="Name" class="form-control" placeholder="Ad" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="input-box">
+                            <i class="fas fa-envelope"></i>
+                            <input asp-for="Email" class="form-control" placeholder="Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="input-box">
+                            <i class="fas fa-lock"></i>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Şifre" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="input-box">
+                            <i class="fas fa-lock"></i>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Şifreyi Tekrar giriniz" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="button input-box">
+                            <input type="submit" value="Kaydol">
+                        </div>
+                    </form>
+                    <div class="text sign-up-text">Hesabınız var mı? <a href="/KaydolVeGiris/Giris">Giriş Yap</a></div>
 
-    <h1>Kaydol</h1>
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="KullanciOlustur">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="ConfirmPassword" class="control-label"></label>
-                    <input asp-for="ConfirmPassword" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Kullancı oluştur" class="btn btn-primary" />
-                </div>
-            </form>
+
+
+            </div>
         </div>
     </div>
 
 </body>
 </html>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+
+
+
+
+

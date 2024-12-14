@@ -8,9 +8,9 @@
     max-width: 850px;
     width: 100%;
     background: #fff;
-    padding: 70px 30px;
-    margin-top: 90px;
-    margin-bottom: 147px;
+    padding: 90px 30px;
+    margin-top: 160px;
+    margin-bottom: 137px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     perspective: 2700px;
 }
@@ -187,7 +187,6 @@
     .forms .form-content .button input {
         color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
         background: #000000;
-
         border-radius: 6px;
         padding: 0;
         cursor: pointer;
