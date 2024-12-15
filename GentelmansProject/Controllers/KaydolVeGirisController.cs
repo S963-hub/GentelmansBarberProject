@@ -52,8 +52,6 @@ namespace GentelmansProject.Controllers
             return RedirectToAction("Giris", "KaydolVeGiris");
         }
 
-
-
             public IActionResult Giris()
             {
                 return View();
@@ -72,6 +70,7 @@ namespace GentelmansProject.Controllers
                     ModelState.AddModelError("Email", "Bu Email adresi için hesap oluşturulmamıştır.");
                     return View(G);
                 }
+
 
                 return Content("Giris yapildi");
             }

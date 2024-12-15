@@ -15,6 +15,11 @@ namespace GentelmansProject.Controllers
 			this.environment = environment;
 		}
 
+		[Route("a")]
+		public IActionResult randevuAL()
+		{
+			return View();
+		}
 
 	}
 }

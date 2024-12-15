@@ -5,9 +5,6 @@ namespace GentelmansProject.Models
 {
     public class RandevuAl
     {
-        [Key]
-        public int RandevuId { get; set; }
-
         [Required]
         [Display(Name = "Müşteri Adı")]
         public string? MusteriAdi { get; set; }
