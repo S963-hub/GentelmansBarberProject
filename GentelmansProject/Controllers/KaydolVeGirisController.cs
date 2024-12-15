@@ -71,7 +71,7 @@ namespace GentelmansProject.Controllers
                     return View(G);
                 }
 
-
+                 
                 return Content("Giris yapildi");
             }
 
