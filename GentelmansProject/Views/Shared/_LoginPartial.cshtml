@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+
+
+
+    // burada Layout kime Hangi sayfa göstereceğimi burada yazacağım
+
+        <li class="nav-item">
+            <a class="nav-link" title="Manage" style="margin-right: 30px">
+                 @((await UserManager.GetUserAsync(User))?.FullName)
+            </a>
+        </li>
+
+        if(User.IsInRole(""))
+        {
+            <li class="nav-item"><a class="nav-link" href="#">Randevu Al</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Yapay Zeka</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Servis</a></li>
+        }
+
+
+
+
+
+        <li class="nav-item">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button class="nav-link" type="submit" >Logout</button>
+        </form>
+         </li >
+}
+else
+{
+        <li class="nav-item">
+            <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+         </li>
+}
+</ul>

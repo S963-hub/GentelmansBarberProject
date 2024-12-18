@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@RenderSection("Scripts", required: false)
+
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,10 +20,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" asp-controller="KaydolVeGiris" asp-action="KullanciOlustur">Giriş Yap</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Randevu Al</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Yapay Zeka</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Servis</a></li>
+                <li class="nav-item"><partial name="_LoginPartial"/></li>
+
                     <li class="nav-item"><a class="nav-link" href="#">İletişim</a></li>
                 </ul>
             </div>
