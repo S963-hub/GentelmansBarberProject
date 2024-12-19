@@ -22,22 +22,17 @@ namespace GentelmansProject.Data
         public DbSet<Randevular> Randevulars { get; set; }
         public DbSet<GentelmansProject.Models.Kaydol>? Kaydol { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+             base.OnModelCreating(builder);
 
-            var admin = new IdentityRole("admin");
-            admin.NormalizedName = "ADMIN";
+                 var admin = new IdentityRole("ADMIN") { NormalizedName = "ADMIN" };
+                 var berber = new IdentityRole("BERBER") { NormalizedName = "BERBER" };
+                 var kullanici = new IdentityRole("KULLANCI") { NormalizedName = "KULLANCI" };
 
-            var Berber = new IdentityRole("Berber");
-            Berber.NormalizedName = "BERBER";
-
-            var Kullanci = new IdentityRole("Kullanci");
-            Kullanci.NormalizedName = "kULLANCI";
-
-            builder.Entity<IdentityRole>().HasData(admin, Berber, Kullanci);
+              builder.Entity<IdentityRole>().HasData(admin, berber, kullanici);
         }
-
 
     }
 }

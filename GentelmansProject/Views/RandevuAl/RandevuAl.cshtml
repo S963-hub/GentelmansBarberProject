@@ -1,92 +1,67 @@
-﻿<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Randevu Al</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
+﻿<h2>Randevu Al</h2>
 
-        form {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: auto;
-        }
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+<form asp-action="RandevuAl" method="post">
+    <div class="form-group">
+        <label>Müşteri Adı</label>
+        <input type="text" class="form-control" value="@Model.MusteriAdi" readonly />
+    </div>
 
-        select, input, button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+    <div class="form-group">
+        <label>Servisler</label>
+        @foreach (var servis in Model.Servisler)
+        {
+            <div>
+                <input type="checkbox" name="SecilenServisIds" value="@servis.Id" class="servis-secimi" data-sure="@servis.Sure" data-ucret="@servis.Ucret" />
+                <span>@servis.Adi - @servis.Ucret TL (@servis.Sure dk)</span>
+            </div>
         }
+    </div>
 
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-            button:hover {
-                background-color: #0056b3;
+    <div class="form-group">
+        <label>Kuaför Seçimi</label>
+        <select  class="form-control">
+            @foreach (var kuafor in Model.Kuaforler)
+            {
+                <option value="@kuafor.Adi">@kuafor.Adi</option>
             }
-    </style>
-</head>
-<body>
-    <h1>Berber Randevusu Al</h1>
-    <form action="submit_randevu.php" method="post">
-        <!-- Berber Adı Seçimi -->
-        <label for="barber">Berber Seçin:</label>
-        <select name="barber" id="barber" required>
-            <option value="">Berber seçin...</option>
-            <option value="berber1">Berber 1</option>
-            <option value="berber2">Berber 2</option>
-            <option value="berber3">Berber 3</option>
         </select>
+    </div>
 
-        <!-- Hizmet Seçimi -->
-        <label for="services">Yapılacak İşlemler:</label>
-        <div>
-            <input type="checkbox" id="sac_kesimi" name="services[]" value="sac_kesimi">
-            <label for="sac_kesimi">Saç Kesimi</label>
-        </div>
-        <div>
-            <input type="checkbox" id="sakal_tiras" name="services[]" value="sakal_tiras">
-            <label for="sakal_tiras">Sakal Tıraşı</label>
-        </div>
-        <div>
-            <input type="checkbox" id="boya" name="services[]" value="boya">
-            <label for="boya">Saç Boyama</label>
-        </div>
-        <div>
-            <input type="checkbox" id="bakim" name="services[]" value="bakim">
-            <label for="bakim">Cilt Bakımı</label>
-        </div>
+    <div class="form-group">
+        <label>Toplam Süre: <span id="toplam-sure">0</span> dk</label><br />
+        <label>Toplam Ücret: <span id="toplam-ucret">0</span> TL</label>
+    </div>
 
-        <!-- Tarih ve Saat Seçimi -->
-        <label for="date">Randevu Tarihi:</label>
-        <input type="date" id="date" name="date" min="2024-12-15" required>
+    <div class="form-group">
+        <label>Randevu Tarihi</label>
+        <input  class="form-control" type="datetime-local" min="09:00" max="21:00" />
+        <span  class="text-danger"></span>
+    </div>
 
-        <label for="time">Randevu Saati:</label>
-        <input type="time" id="time" name="time" min="10:00" max="21:00" required>
+    <button type="submit" class="btn btn-primary">Randevu Al</button>
+</form>
 
-        <!-- Form Gönderme -->
-        <button type="submit">Randevu Al</button>
-    </form>
-</body>
-</html>
+<script>
+    // Servis seçimi dinamik hesaplama
+    document.querySelectorAll('.servis-secimi').forEach(input => {
+        input.addEventListener('change', () => {
+            let toplamSure = 0;
+            let toplamUcret = 0;
+
+            document.querySelectorAll('.servis-secimi:checked').forEach(selected => {
+                toplamSure += parseInt(selected.dataset.sure);
+                toplamUcret += parseFloat(selected.dataset.ucret);
+            });
+
+            document.getElementById('toplam-sure').textContent = toplamSure;
+            document.getElementById('toplam-ucret').textContent = toplamUcret.toFixed(2);
+        });
+    });
+</script>

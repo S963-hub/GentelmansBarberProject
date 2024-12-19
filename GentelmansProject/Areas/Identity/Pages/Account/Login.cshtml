@@ -36,15 +36,13 @@
                             <!-- Email Input -->
                             <div class="input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                                <label asp-for="Input.Email" class="form-label"></label>
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email" />
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
                             <!-- Password Input -->
                             <div class="input-box">
                                 <i class="fas fa-envelope"></i>
-                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                                <label asp-for="Input.Password" class="form-label"></label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
                             <!-- Remember Me Checkbox -->
@@ -59,7 +57,7 @@
                                 <input type="submit" value="Submit">
                             </div>
                             <!-- Sign-Up Link -->
-                            <div class="text sign-up-text">Hesabınız var mı? <a href="/KaydolVeGiris/Giris">Giriş Yap</a></div>
+                            <div class="text sign-up-text">Hesap oluşturunuz <a asp-area="Identity" asp-page="/Account/Register">Register</a></div>
                         </div>
                     </form>
                 </div>

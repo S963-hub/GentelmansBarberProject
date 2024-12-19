@@ -1,4 +1,5 @@
 ﻿using GentelmansProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -13,6 +14,13 @@ namespace GentelmansProject.Controllers
             _logger = logger;
         }
 
+
+        public IActionResult AdminPage()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             return View();
