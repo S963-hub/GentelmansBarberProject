@@ -1,6 +1,7 @@
 Kuaför/Berber İşletme ve Randevulerin Yönetim Sistemi
 
 Proje Adı: Gentlemans Barber
+
 Amaç:
 Bu proje, kuaför ve berber salonlarının işleyişini dijital bir platformda yönetmek amacıyla geliştirilmiştir. 
 Sistem, salonların hizmetlerini organize ederek, çalışanların uygunluk durumlarını yönetmelerini ve müşterilerin hızlı bir şekilde randevu almalarını sağlar.
