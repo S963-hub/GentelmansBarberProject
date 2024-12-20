@@ -1,67 +1,59 @@
-﻿<h2>Randevu Al</h2>
+﻿@model dynamic
+using System.Linq;
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["Message"]
-    </div>
-}
-
-<form asp-action="RandevuAl" method="post">
-    <div class="form-group">
-        <label>Müşteri Adı</label>
-        <input type="text" class="form-control" value="@Model.MusteriAdi" readonly />
-    </div>
-
-    <div class="form-group">
-        <label>Servisler</label>
-        @foreach (var servis in Model.Servisler)
-        {
-            <div>
-                <input type="checkbox" name="SecilenServisIds" value="@servis.Id" class="servis-secimi" data-sure="@servis.Sure" data-ucret="@servis.Ucret" />
-                <span>@servis.Adi - @servis.Ucret TL (@servis.Sure dk)</span>
-            </div>
-        }
-    </div>
-
-    <div class="form-group">
-        <label>Kuaför Seçimi</label>
-        <select  class="form-control">
-            @foreach (var kuafor in Model.Kuaforler)
+<div class="container mt-4">
+    <h2>Randevu Al</h2>
+    <form asp-action="RandevuAl" method="post">
+        <div class="form-group">
+            <label for="berber">Berber Seçin:</label>
+            @if (ViewBag.Berberler != null && ViewBag.Berberler.Any())
             {
-                <option value="@kuafor.Adi">@kuafor.Adi</option>
+                <select id="berber" name="BerberId" class="form-control" required>
+                    @foreach (var berber in ViewBag.Berberler)
+                    {
+                        <option value="@berber.Id">@berber.Name</option>
+                    }
+                </select>
             }
-        </select>
-    </div>
+            else
+            {
+                <p>Henüz sistemde kayıtlı bir berber bulunmamaktadır.</p>
+            }
+        </div>
 
-    <div class="form-group">
-        <label>Toplam Süre: <span id="toplam-sure">0</span> dk</label><br />
-        <label>Toplam Ücret: <span id="toplam-ucret">0</span> TL</label>
-    </div>
+        <label for="servisler">Servisler:</label>
+        <div class="form-group mt-3">
+            @if (ViewBag.Servisler != null && ViewBag.Servisler.Any())
+            {
+                @foreach (var servis in ViewBag.Servisler)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="ServisIds" value="@servis.Id" id="servis-@servis.Id" />
+                        <label class="form-check-label" for="servis-@servis.Id">@servis.Name (@servis.HizmetFiyat.ToString("C"))</label>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Henüz sistemde kayıtlı bir servis bulunmamaktadır.</p>
+            }
+        </div>
 
-    <div class="form-group">
-        <label>Randevu Tarihi</label>
-        <input  class="form-control" type="datetime-local" min="09:00" max="21:00" />
-        <span  class="text-danger"></span>
-    </div>
+        <div class="form-group mt-3">
+            <label for="tarih">Tarih:</label>
+            <input type="date" id="tarih" name="RandevuTarihi" class="form-control" required />
+        </div>
 
-    <button type="submit" class="btn btn-primary">Randevu Al</button>
-</form>
+        <div class="form-group mt-3">
+            <label for="saat">Saat:</label>
+            <input type="time" id="saat" name="RandevuSaati" class="form-control" required />
+        </div>
 
-<script>
-    // Servis seçimi dinamik hesaplama
-    document.querySelectorAll('.servis-secimi').forEach(input => {
-        input.addEventListener('change', () => {
-            let toplamSure = 0;
-            let toplamUcret = 0;
+        <div class="form-group mt-3">
+            <label for="notlar">Notlar:</label>
+            <textarea id="notlar" name="Notlar" class="form-control"></textarea>
+        </div>
 
-            document.querySelectorAll('.servis-secimi:checked').forEach(selected => {
-                toplamSure += parseInt(selected.dataset.sure);
-                toplamUcret += parseFloat(selected.dataset.ucret);
-            });
-
-            document.getElementById('toplam-sure').textContent = toplamSure;
-            document.getElementById('toplam-ucret').textContent = toplamUcret.toFixed(2);
-        });
-    });
-</script>
+        <button type="submit" class="btn btn-primary mt-3">Randevu Al</button>
+    </form>
+</div>

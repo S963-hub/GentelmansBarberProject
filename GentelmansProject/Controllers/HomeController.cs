@@ -20,7 +20,7 @@ namespace GentelmansProject.Controllers
             return View();
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize]
         public IActionResult Index()
         {
             return View();

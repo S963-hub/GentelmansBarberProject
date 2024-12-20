@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace GentelmansProject.Controllers
-{
+{/*
     public class KaydolVeGirisController : Controller
     {
         private readonly ApplicationDbContext context;
@@ -82,6 +82,7 @@ namespace GentelmansProject.Controllers
             }
 
         }
+    */
     }
 
 

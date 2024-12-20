@@ -1,38 +1,41 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GentelmansProject.Models
 {
     public class Randevular
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; } // Benzersiz kimlik
 
         [Required]
-        [Display(Name = "Müşteri Adı")]
-        public string? MusteriAdi { get; set; }
+        public int BerberId { get; set; } // Berber tablosuna referans
+
+        [ForeignKey("BerberId")]
+        public Berber Berber { get; set; } // İlişkili berber
 
         [Required]
-        [Display(Name = "Kuaför Adı")]
-        public string CalisanAdi { get; set; } = string.Empty;
+        public string KullaniciId { get; set; } = string.Empty; // Kullanıcı kimliği
+
+        [ForeignKey("KullaniciId")]
+        public ApplicationUser Kullanici { get; set; } // İlişkili kullanıcı
 
         [Required]
-        [Display(Name = "Ücret")]
-        public decimal Ucret { get; set; }
+        public string ServisIds { get; set; } = string.Empty; // Servis Id'leri (ör. "1,2,3")
 
         [Required]
-        [Display(Name = "Süre (Dakika)")]
-        public int Sure { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime RandevuTarihi { get; set; } // Randevu tarihi
 
         [Required]
-        [Display(Name = "Randevu Tarihi")]
-        public DateTime RandevuTarihi { get; set; }
+        [DataType(DataType.Time)]
+        public string RandevuSaati { get; set; } = string.Empty; // Randevu saati (örn: "14:30")
 
         [Required]
-        [Display(Name = "Onay Durumu")]
-        public bool OnayDurumu { get; set; } = false;
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal ToplamFiyat { get; set; } // Toplam ücret
 
-        [Required]
-        public string UserId { get; set; } // Randevuyu alan kullanıcı
+        public string Notlar { get; set; } = string.Empty;  // Kullanıcı notları (isteğe bağlı)
     }
 }

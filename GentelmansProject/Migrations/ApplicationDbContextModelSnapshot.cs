@@ -140,31 +140,6 @@ namespace GentelmansProject.Migrations
                     b.ToTable("Kaydol");
                 });
 
-            modelBuilder.Entity("GentelmansProject.Models.Kullanci", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Kullancis");
-                });
-
             modelBuilder.Entity("GentelmansProject.Models.Randevular", b =>
                 {
                     b.Property<int>("Id")
@@ -176,22 +151,67 @@ namespace GentelmansProject.Migrations
                     b.Property<int>("BerberId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("RandevuMusaitlik")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("RandevuTarihiVeSaati")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("ServisId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("musteriAdi")
+                    b.Property<string>("KullaniciId")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Notlar")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RandevuSaati")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RandevuTarihi")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ServisIds")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("ToplamFiyat")
+                        .HasColumnType("numeric(18,2)");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("BerberId");
+
+                    b.HasIndex("KullaniciId");
+
                     b.ToTable("Randevulars");
+                });
+
+            modelBuilder.Entity("GentelmansProject.Models.RandevularimViewModel", b =>
+                {
+                    b.Property<string>("UserID")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BerberAdi")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Notlar")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Saat")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Servisler")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Tarih")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("ToplamFiyat")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("Randevularim");
                 });
 
             modelBuilder.Entity("GentelmansProject.Models.Servis", b =>
@@ -245,22 +265,22 @@ namespace GentelmansProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "44136912-0aa0-491b-b1fc-3f8318be9675",
-                            ConcurrencyStamp = "d7746c15-f5de-4e68-9c84-f7e056341dba",
+                            Id = "c1625b35-1c11-4052-ac7c-08abe137eea5",
+                            ConcurrencyStamp = "b613a10b-4838-434a-8a87-38454369c782",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "86b5372c-faf3-4ce4-ab5a-c5136f6b71c5",
-                            ConcurrencyStamp = "982cd3a8-b6fe-4c14-876e-8dc5ec7dc961",
+                            Id = "1e452643-351c-41d4-a04b-bcf56700b5f5",
+                            ConcurrencyStamp = "ee8369ac-dae6-47c8-8a12-5c22140a6f2f",
                             Name = "BERBER",
                             NormalizedName = "BERBER"
                         },
                         new
                         {
-                            Id = "a0900ee2-9394-44e1-997e-d723d9dea017",
-                            ConcurrencyStamp = "a1c6ee4e-8a6c-4e78-a45f-dec2aec9ab4a",
+                            Id = "72080bbf-bc76-4402-853b-240f420320af",
+                            ConcurrencyStamp = "1c168112-8a4b-43e6-b6e3-73f493571211",
                             Name = "KULLANCI",
                             NormalizedName = "KULLANCI"
                         });
@@ -374,6 +394,25 @@ namespace GentelmansProject.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("GentelmansProject.Models.Randevular", b =>
+                {
+                    b.HasOne("GentelmansProject.Models.Berber", "Berber")
+                        .WithMany()
+                        .HasForeignKey("BerberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApplicationUser", "Kullanici")
+                        .WithMany()
+                        .HasForeignKey("KullaniciId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Berber");
+
+                    b.Navigation("Kullanici");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
