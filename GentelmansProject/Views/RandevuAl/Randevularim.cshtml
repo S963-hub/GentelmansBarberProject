@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GentelmansProject.Models.Randevular>
+
+<div class="container mt-4">
+    <h2 class="text-center">Randevularım</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered table-striped mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Berber Adı</th>
+                    <th>Tarih</th>
+                    <th>Saat</th>
+                    <th>Toplam Fiyat</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var randevu in Model)
+                {
+                    <tr>
+                        <td>@randevu.Berber.Name</td>
+                        <td>@randevu.RandevuTarihi.ToShortDateString()</td>
+                        <td>@randevu.RandevuSaati</td>
+                        <td>@randevu.ToplamFiyat.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-4">
+            Henüz herhangi bir randevu oluşturmadınız.
+        </div>
+    }
+</div>

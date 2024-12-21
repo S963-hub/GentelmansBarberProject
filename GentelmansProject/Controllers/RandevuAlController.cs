@@ -1,6 +1,7 @@
 ﻿using GentelmansProject.Data;
 using GentelmansProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,19 +11,34 @@ namespace GentelmansProject.Controllers
     public class RandevuAlController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public RandevuAlController(ApplicationDbContext context)
+
+        public RandevuAlController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // Randevu Sayfası (Get)
         public async Task<IActionResult> RandevuAl()
         {
-            ViewBag.Berberler = _context.Berbers.ToList();
-            ViewBag.Servisler = _context.Servises.ToList();
+            var berberler = _context.Berbers.ToList();
+            var servisler = _context.Servises.ToList();
 
-            // Breakpoint koyarak ViewBag.Berberler'in dolu olup olmadığını kontrol edin
+            if (!berberler.Any())
+            {
+                ModelState.AddModelError("", "Henüz hiçbir berber eklenmemiş.");
+            }
+
+            if (!servisler.Any())
+            {
+                ModelState.AddModelError("", "Henüz hiçbir servis eklenmemiş.");
+            }
+
+            ViewBag.Berberler = berberler;
+            ViewBag.Servisler = servisler;
+
             return View();
         }
 
@@ -31,9 +47,25 @@ namespace GentelmansProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Unauthorized();
+                }
+                var kullaniciId = user.Id;
+
+                // Geçmiş tarihler kontrolü
+                if (model.RandevuTarihi < DateTime.Today)
+                {
+                    ModelState.AddModelError("", "Geçmiş bir tarihe randevu alınamaz.");
+                    return View(model);
+                }
+
                 // Seçilen saat dolu mu kontrol et
-                bool isAvailable = !_context.Randevulars
-                    .Any(r => r.RandevuTarihi == model.RandevuTarihi && r.RandevuSaati == model.RandevuSaati && r.BerberId == model.BerberId);
+                bool isAvailable = !await _context.Randevulars
+                    .AnyAsync(r => r.RandevuTarihi == model.RandevuTarihi
+                                && r.RandevuSaati == model.RandevuSaati
+                                && r.BerberId == model.BerberId);
 
                 if (!isAvailable)
                 {
@@ -42,23 +74,42 @@ namespace GentelmansProject.Controllers
                 }
 
                 // Seçilen servislerin toplam fiyatını hesapla
-                var servisIds = model.ServisIds.Split(',').Select(int.Parse).ToList();
-               // decimal toplamFiyat = servisIds.Sum(id => _context.Servises.Find(id)?.ToplamFiyat ?? 0);
+                decimal toplamFiyat = 0;
+                if (!string.IsNullOrEmpty(model.ServisIds))
+                {
+                    try
+                    {
+                        var servisIds = model.ServisIds
+                            .Split(',')
+                            .Where(id => !string.IsNullOrWhiteSpace(id))
+                            .Select(int.Parse)
+                            .ToList();
+
+                        toplamFiyat = await _context.Servises
+                            .Where(s => servisIds.Contains(s.Id))
+                            .SumAsync(s => s.HizmetFiyat);
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "Servis fiyatları hesaplanırken bir hata oluştu: " + ex.Message);
+                        return View(model);
+                    }
+                }
 
                 // Randevuyu oluştur ve kaydet
                 var randevu = new Randevular
                 {
-                    KullaniciId = User.Identity.Name,
+                    KullaniciId = kullaniciId,
                     BerberId = model.BerberId,
                     ServisIds = model.ServisIds,
                     RandevuTarihi = model.RandevuTarihi,
                     RandevuSaati = model.RandevuSaati,
-                    //ToplamFiyat = toplamFiyat,
-                    Notlar = model.Notlar
+                    ToplamFiyat = toplamFiyat,
+                    Notlar = string.IsNullOrWhiteSpace(model.Notlar) ? null : model.Notlar
                 };
 
                 _context.Randevulars.Add(randevu);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return RedirectToAction("Randevularim");
             }
@@ -68,40 +119,25 @@ namespace GentelmansProject.Controllers
 
 
 
-
-
         // Kullanıcının randevularını listeleme
-        public IActionResult Randevularim()
+        // Kullanıcının randevularını listeleme
+        public async Task<IActionResult> Randevularim()
         {
-            var userId = User.Identity.Name; // Şu anki kullanıcı ID'si
-            var randevular = _context.Randevulars
-                .Include(r => r.Berber)
-                .Where(r => r.KullaniciId == userId)
-                .ToList();
+            // Giriş yapan kullanıcı kimliği
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized(); // Kullanıcı giriş yapmamış
+            }
 
-            return View(randevular);
+            var userId = user.Id; // Kullanıcı ID'sini al
+            var randevular = await _context.Randevulars
+                .Include(r => r.Berber) // Berber tablosunu ekliyoruz
+                .Where(r => r.KullaniciId == userId) // Kullanıcı ID'sine göre filtreleme
+                .ToListAsync();
+
+            return View(randevular); // Model'i View'e gönderiyoruz
         }
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-public async Task<IActionResult> Randevularim()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            var randevular = _context.Randevulars
-                .Where(r => r.UserId == user.Id) // Yalnızca giriş yapan kullanıcının randevuları
-                .ToList();
-
-            return View(randevular);
-        }*/

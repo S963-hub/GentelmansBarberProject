@@ -1,12 +1,11 @@
-﻿@model dynamic
-using System.Linq;
+﻿@model RandevuAlViewModel
 
 <div class="container mt-4">
     <h2>Randevu Al</h2>
     <form asp-action="RandevuAl" method="post">
         <div class="form-group">
             <label for="berber">Berber Seçin:</label>
-            @if (ViewBag.Berberler != null && ViewBag.Berberler.Any())
+            @if (ViewBag.Berberler != null)
             {
                 <select id="berber" name="BerberId" class="form-control" required>
                     @foreach (var berber in ViewBag.Berberler)
@@ -23,7 +22,7 @@ using System.Linq;
 
         <label for="servisler">Servisler:</label>
         <div class="form-group mt-3">
-            @if (ViewBag.Servisler != null && ViewBag.Servisler.Any())
+            @if (ViewBag.Servisler != null)
             {
                 @foreach (var servis in ViewBag.Servisler)
                 {
@@ -41,13 +40,19 @@ using System.Linq;
 
         <div class="form-group mt-3">
             <label for="tarih">Tarih:</label>
-            <input type="date" id="tarih" name="RandevuTarihi" class="form-control" required />
+            <input type="date" id="tarih" name="RandevuTarihi" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" required />
         </div>
 
         <div class="form-group mt-3">
-            <label for="saat">Saat:</label>
-            <input type="time" id="saat" name="RandevuSaati" class="form-control" required />
+          <label for="saat">Saat:</label>
+          <select id="saat" name="RandevuSaati" class="form-control" required>
+                 @for (int hour = 9; hour <= 18; hour++) 
+                 {
+                   <option value="@hour:00">@hour:00</option>
+                 }
+          </select>
         </div>
+
 
         <div class="form-group mt-3">
             <label for="notlar">Notlar:</label>
