@@ -18,5 +18,7 @@ namespace GentelmansProject.Models
 
         [MaxLength(500)]
         public string Notlar { get; set; }
+
+        public decimal ToplamFiyat { get; set; } // Toplam Fiyat
     }
 }

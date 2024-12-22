@@ -20,7 +20,7 @@ namespace GentelmansProject.Data
         public DbSet<Servis> Servises { get; set; }
         public DbSet<Randevular> Randevulars { get; set; }
         public DbSet<RandevularimViewModel> Randevularim { get; set; }
-        public DbSet<GentelmansProject.Models.Kaydol>? Kaydol { get; set; }
+        public DbSet<kaydol> Kaydols { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

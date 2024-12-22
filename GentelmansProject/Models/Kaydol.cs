@@ -1,29 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GentelmansProject.Models
 {
-    public class Kaydol
+    public class kaydol
     {
-        [Display(Name = "Username")]
-        [Required(ErrorMessage = "lütfen Adınızı giriniz")]
-        public string Name { get; set; } = string.Empty;
+        [Required]
         [Key]
-        [Display(Name = "Email Adress")]
-        [EmailAddress(ErrorMessage = "lütfen Email fırmatında girdiğinizi emin olnuz. ")]
-        [Required(ErrorMessage = "Bu Alan Zorunludur")]
-        public string Email { get; set; } = string.Empty;
+        public int BerberId { get; set; } // Seçilen Berber Id
+        public string ServisIds { get; set; }  // Seçilen Servislerin Id'leri (virgülle ayrılmış)
 
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime RandevuTarihi { get; set; }
 
-        [Display(Name = "Password")]
-        [Required(ErrorMessage = "Bu Alan Zorunludur")]
-        public string Password { get; set; } = string.Empty;
+        [Required]
+        [DataType(DataType.Time)]
+        public string RandevuSaati { get; set; }
 
+        [MaxLength(500)]
+        public string Notlar { get; set; }
 
-        [Display(Name = "Confirm Password")]
-        [Required(ErrorMessage = "Bu Alan Zorunludur")]
-        [Compare("Password", ErrorMessage = "Lütfen yukardaki şifreyi tekrar giriniz. ")]
-        public string ConfirmPassword { get; set; } = string.Empty;
+        public decimal ToplamFiyat { get; set; } // Toplam Fiyat
     }
-
 }
-

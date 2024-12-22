@@ -118,26 +118,36 @@ namespace GentelmansProject.Migrations
                     b.ToTable("Berbers");
                 });
 
-            modelBuilder.Entity("GentelmansProject.Models.Kaydol", b =>
+            modelBuilder.Entity("GentelmansProject.Models.kaydol", b =>
                 {
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
+                    b.Property<int>("BerberId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("ConfirmPassword")
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BerberId"));
+
+                    b.Property<string>("Notlar")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("RandevuSaati")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
+                    b.Property<DateTime>("RandevuTarihi")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ServisIds")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<decimal>("ToplamFiyat")
+                        .HasColumnType("numeric");
 
-                    b.HasKey("Email");
+                    b.HasKey("BerberId");
 
-                    b.ToTable("Kaydol");
+                    b.ToTable("Kaydols");
                 });
 
             modelBuilder.Entity("GentelmansProject.Models.Randevular", b =>
@@ -176,8 +186,6 @@ namespace GentelmansProject.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BerberId");
-
-                    b.HasIndex("KullaniciId");
 
                     b.ToTable("Randevulars");
                 });
@@ -222,8 +230,8 @@ namespace GentelmansProject.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("HizmetFiyat")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("HizmetFiyat")
+                        .HasColumnType("numeric");
 
                     b.Property<int>("HizmetSuresi")
                         .HasColumnType("integer");
@@ -265,22 +273,22 @@ namespace GentelmansProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c1625b35-1c11-4052-ac7c-08abe137eea5",
-                            ConcurrencyStamp = "b613a10b-4838-434a-8a87-38454369c782",
+                            Id = "c8f48989-3c55-4fb4-8e65-d1db55d9d2cf",
+                            ConcurrencyStamp = "feb04410-7335-4539-95b1-f95149bff378",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "1e452643-351c-41d4-a04b-bcf56700b5f5",
-                            ConcurrencyStamp = "ee8369ac-dae6-47c8-8a12-5c22140a6f2f",
+                            Id = "d3b7364a-5d98-4139-8f88-37cda3cf1ee2",
+                            ConcurrencyStamp = "fd0f3f03-7b0b-4124-9c9e-e492da06ff3e",
                             Name = "BERBER",
                             NormalizedName = "BERBER"
                         },
                         new
                         {
-                            Id = "72080bbf-bc76-4402-853b-240f420320af",
-                            ConcurrencyStamp = "1c168112-8a4b-43e6-b6e3-73f493571211",
+                            Id = "d9697045-6352-44d6-bfaf-9d5002cc6908",
+                            ConcurrencyStamp = "6b335f24-47c9-4f67-8d11-e98e11362e82",
                             Name = "KULLANCI",
                             NormalizedName = "KULLANCI"
                         });
@@ -404,15 +412,7 @@ namespace GentelmansProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ApplicationUser", "Kullanici")
-                        .WithMany()
-                        .HasForeignKey("KullaniciId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Berber");
-
-                    b.Navigation("Kullanici");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

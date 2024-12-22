@@ -1,41 +1,37 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GentelmansProject.Models
 {
     public class Randevular
     {
         [Key]
-        public int Id { get; set; } // Benzersiz kimlik
+        public int Id { get; set; }
 
         [Required]
-        public int BerberId { get; set; } // Berber tablosuna referans
+        public int BerberId { get; set; }
 
         [ForeignKey("BerberId")]
         public Berber Berber { get; set; } // İlişkili berber
 
         [Required]
-        public string KullaniciId { get; set; } = string.Empty; // Kullanıcı kimliği
-
-        [ForeignKey("KullaniciId")]
-        public ApplicationUser Kullanici { get; set; } // İlişkili kullanıcı
+        public string KullaniciId { get; set; } = string.Empty;
 
         [Required]
-        public string ServisIds { get; set; } = string.Empty; // Servis Id'leri (ör. "1,2,3")
+        public string ServisIds { get; set; } = string.Empty; // Virgülle ayrılmış servis ID'leri
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime RandevuTarihi { get; set; } // Randevu tarihi
+        public DateTime RandevuTarihi { get; set; }
 
         [Required]
         [DataType(DataType.Time)]
-        public string RandevuSaati { get; set; } = string.Empty; // Randevu saati (örn: "14:30")
+        public string RandevuSaati { get; set; } = string.Empty;
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal ToplamFiyat { get; set; } // Toplam ücret
+        public decimal ToplamFiyat { get; set; } // Hesaplanan toplam fiyat
 
-        public string Notlar { get; set; } = string.Empty;  // Kullanıcı notları (isteğe bağlı)
+        public string Notlar { get; set; } = string.Empty;
     }
 }

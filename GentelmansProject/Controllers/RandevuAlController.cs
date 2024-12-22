@@ -13,7 +13,6 @@ namespace GentelmansProject.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-
         public RandevuAlController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -23,8 +22,8 @@ namespace GentelmansProject.Controllers
         // Randevu Sayfası (Get)
         public async Task<IActionResult> RandevuAl()
         {
-            var berberler = _context.Berbers.ToList();
-            var servisler = _context.Servises.ToList();
+            var berberler = await _context.Berbers.ToListAsync();
+            var servisler = await _context.Servises.ToListAsync();
 
             if (!berberler.Any())
             {
@@ -75,6 +74,7 @@ namespace GentelmansProject.Controllers
 
                 // Seçilen servislerin toplam fiyatını hesapla
                 decimal toplamFiyat = 0;
+                List<Servis> selectedServices = new List<Servis>();
                 if (!string.IsNullOrEmpty(model.ServisIds))
                 {
                     try
@@ -85,9 +85,15 @@ namespace GentelmansProject.Controllers
                             .Select(int.Parse)
                             .ToList();
 
-                        toplamFiyat = await _context.Servises
+                        selectedServices = await _context.Servises
                             .Where(s => servisIds.Contains(s.Id))
-                            .SumAsync(s => s.HizmetFiyat);
+                            .ToListAsync();
+
+                        toplamFiyat = selectedServices.Sum(s => s.HizmetFiyat);
+
+                        // Seçilen servisleri ve toplam fiyatı ViewBag içinde sakla
+                        ViewBag.SelectedServices = selectedServices;
+                        ViewBag.ToplamFiyat = toplamFiyat;
                     }
                     catch (Exception ex)
                     {
@@ -95,6 +101,8 @@ namespace GentelmansProject.Controllers
                         return View(model);
                     }
                 }
+
+                model.ToplamFiyat = toplamFiyat;
 
                 // Randevuyu oluştur ve kaydet
                 var randevu = new Randevular
@@ -104,7 +112,7 @@ namespace GentelmansProject.Controllers
                     ServisIds = model.ServisIds,
                     RandevuTarihi = model.RandevuTarihi,
                     RandevuSaati = model.RandevuSaati,
-                    ToplamFiyat = toplamFiyat,
+                    ToplamFiyat = model.ToplamFiyat,
                     Notlar = string.IsNullOrWhiteSpace(model.Notlar) ? null : model.Notlar
                 };
 
@@ -114,12 +122,13 @@ namespace GentelmansProject.Controllers
                 return RedirectToAction("Randevularim");
             }
 
+            // ViewBag için gerekli verileri tekrar yükleyin
+            ViewBag.Berberler = await _context.Berbers.ToListAsync();
+            ViewBag.Servisler = await _context.Servises.ToListAsync();
+
             return View(model);
         }
 
-
-
-        // Kullanıcının randevularını listeleme
         // Kullanıcının randevularını listeleme
         public async Task<IActionResult> Randevularim()
         {
@@ -138,6 +147,5 @@ namespace GentelmansProject.Controllers
 
             return View(randevular); // Model'i View'e gönderiyoruz
         }
-
     }
 }
