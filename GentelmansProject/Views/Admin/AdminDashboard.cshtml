@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel";
+    Layout = "_Layout";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/AdminDashboard.css" asp-append-version="true" />
+</head>
+
+<h2>Admin Panel</h2>
+<div class="container mt-4">
+    <form id="salonForm" method="post" action="@Url.Action("Index", "Admin")">
+        <div class="form-group">
+            <label for="salonSecimi">Salon Seçimi:</label>
+            <select id="salonSecimi" name="salonSecimi" class="form-control">
+                <option value="1">Salon 1</option>
+                <option value="2">Salon 2</option>
+                <option value="3">Salon 3</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4">Seç</button>
+    </form>
+
+    @if (ViewBag.SalonId != null)
+    {
+        <div class="mt-4">
+            <h3>Salon @ViewBag.SalonId Seçildi</h3>
+            <a href="@Url.Action("ServisleriYonet", new { salonId = ViewBag.SalonId })" class="btn btn-primary btn-block mb-2">Servisleri Yönet</a>
+            <a href="@Url.Action("CalisanListesi", new { salonId = ViewBag.SalonId })" class="btn btn-primary btn-block">Çalışanları Yönet</a>
+        </div>
+    }
+</div>

@@ -110,44 +110,51 @@ namespace GentelmansProject.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("musaitlik")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.ToTable("Berbers");
                 });
 
-            modelBuilder.Entity("GentelmansProject.Models.kaydol", b =>
+            modelBuilder.Entity("GentelmansProject.Models.Berber2", b =>
                 {
-                    b.Property<int>("BerberId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BerberId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Notlar")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("RandevuSaati")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("RandevuTarihi")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("ServisIds")
+                    b.Property<string>("UzmanlikAlani")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("ToplamFiyat")
-                        .HasColumnType("numeric");
+                    b.HasKey("Id");
 
-                    b.HasKey("BerberId");
+                    b.ToTable("Berbers2");
+                });
 
-                    b.ToTable("Kaydols");
+            modelBuilder.Entity("GentelmansProject.Models.Berber3", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UzmanlikAlani")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Berbers3");
                 });
 
             modelBuilder.Entity("GentelmansProject.Models.Randevular", b =>
@@ -245,6 +252,52 @@ namespace GentelmansProject.Migrations
                     b.ToTable("Servises");
                 });
 
+            modelBuilder.Entity("GentelmansProject.Models.Servis2", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("HizmetFiyat")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("HizmetSuresi")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servisess2");
+                });
+
+            modelBuilder.Entity("GentelmansProject.Models.Servis3", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("HizmetFiyat")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("HizmetSuresi")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servises3");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -273,22 +326,22 @@ namespace GentelmansProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c8f48989-3c55-4fb4-8e65-d1db55d9d2cf",
-                            ConcurrencyStamp = "feb04410-7335-4539-95b1-f95149bff378",
+                            Id = "0cc20163-ebde-47ac-8dfe-a91bcacbb0b2",
+                            ConcurrencyStamp = "188fc8fb-4ab8-4c51-89a3-cc37777d54c1",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d3b7364a-5d98-4139-8f88-37cda3cf1ee2",
-                            ConcurrencyStamp = "fd0f3f03-7b0b-4124-9c9e-e492da06ff3e",
+                            Id = "4456b73a-9089-415d-a9d0-533deae9364a",
+                            ConcurrencyStamp = "a9ee33cb-454b-482d-98da-5edc1e86bb6b",
                             Name = "BERBER",
                             NormalizedName = "BERBER"
                         },
                         new
                         {
-                            Id = "d9697045-6352-44d6-bfaf-9d5002cc6908",
-                            ConcurrencyStamp = "6b335f24-47c9-4f67-8d11-e98e11362e82",
+                            Id = "772e8a69-72d5-4a4a-b645-ffbee56a185d",
+                            ConcurrencyStamp = "f56fc482-dd41-4a52-a68b-773492caabca",
                             Name = "KULLANCI",
                             NormalizedName = "KULLANCI"
                         });

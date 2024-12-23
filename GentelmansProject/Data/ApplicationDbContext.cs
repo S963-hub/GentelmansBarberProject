@@ -17,21 +17,25 @@ namespace GentelmansProject.Data
         {
         }
         public DbSet<Berber> Berbers { get; set; }
+        public DbSet<Berber2> Berbers2 { get; set; }
+        public DbSet<Berber3> Berbers3 { get; set; }
         public DbSet<Servis> Servises { get; set; }
+        public DbSet<Servis2> Servises2 { get; set; }
+        public DbSet<Servis3> Servises3 { get; set; }
+
         public DbSet<Randevular> Randevulars { get; set; }
         public DbSet<RandevularimViewModel> Randevularim { get; set; }
-        public DbSet<kaydol> Kaydols { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-             base.OnModelCreating(builder);
+            base.OnModelCreating(builder);
 
-                 var admin = new IdentityRole("ADMIN") { NormalizedName = "ADMIN" };
-                 var berber = new IdentityRole("BERBER") { NormalizedName = "BERBER" };
-                 var kullanici = new IdentityRole("KULLANCI") { NormalizedName = "KULLANCI" };
+            var admin = new IdentityRole("ADMIN") { NormalizedName = "ADMIN" };
+            var berber = new IdentityRole("BERBER") { NormalizedName = "BERBER" };
+            var kullanici = new IdentityRole("KULLANCI") { NormalizedName = "KULLANCI" };
 
-              builder.Entity<IdentityRole>().HasData(admin, berber, kullanici);
+            builder.Entity<IdentityRole>().HasData(admin, berber, kullanici);
         }
 
     }

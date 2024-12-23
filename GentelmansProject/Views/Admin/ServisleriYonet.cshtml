@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Servis>
+
+@{
+    ViewData["Title"] = "Servis Listesi";
+    Layout = "_Layout";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/ServisleriYonet.css" asp-append-version="true" />
+</head>
+
+<div class="container mt-4">
+    <h2 class="text-center">Servis Listesi (Salon @ViewBag.SalonId)</h2>
+
+    <a href="@Url.Action("ServisEkleGuncelle", new { salonId = ViewBag.SalonId })" class="btn btn-primary mb-4">Yeni Servis Ekle</a>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered table-striped mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Adı</th>
+                    <th>Fiyat</th>
+                    <th>Süre</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var servis in Model)
+                {
+                    <tr>
+                        <td>@servis.Name</td>
+                        <td>@servis.HizmetFiyat.ToString("C")</td>
+                        <td>@servis.HizmetSuresi dk</td>
+                        <td>
+                            <a href="@Url.Action("ServisEkleGuncelle", new { id = servis.Id, salonId = ViewBag.SalonId })" class="btn btn-warning btn-sm">Güncelle</a>
+                            <a href="@Url.Action("ServisSil", new { id = servis.Id, salonId = ViewBag.SalonId })" class="btn btn-danger btn-sm">Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-4">
+            Henüz herhangi bir servis eklenmedi.
+        </div>
+    }
+</div>

@@ -8,3 +8,6 @@
         public decimal HizmetFiyat { get; set; } // Decimal türünde olmalı
     }
 }
+
+
+

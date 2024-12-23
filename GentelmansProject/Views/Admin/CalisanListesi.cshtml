@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Berber>
+
+@{
+    ViewData["Title"] = "Çalışan Listesi";
+    Layout = "_Layout";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/CalisanListesi.css" asp-append-version="true" />
+</head>
+
+<div class="container mt-4">
+    <h2 class="text-center">Çalışan Listesi (Salon @ViewBag.SalonId)</h2>
+
+    <a href="@Url.Action("CalisanEkleGuncelle", new { salonId = ViewBag.SalonId })" class="btn btn-primary mb-4">Yeni Çalışan Ekle</a>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered table-striped mt-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Adı</th>
+                    <th>Uzmanlık Alanı</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var calisan in Model)
+                {
+                    <tr>
+                        <td>@calisan.Name</td>
+                        <td>@calisan.UzmanlikAlani</td>
+                        <td>
+                            <a href="@Url.Action("CalisanEkleGuncelle", new { id = calisan.Id, salonId = ViewBag.SalonId })" class="btn btn-warning btn-sm">Güncelle</a>
+                            <a href="@Url.Action("CalisanSil", new { id = calisan.Id, salonId = ViewBag.SalonId })" class="btn btn-danger btn-sm">Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-4">
+            Henüz herhangi bir çalışan eklenmedi.
+        </div>
+    }
+</div>

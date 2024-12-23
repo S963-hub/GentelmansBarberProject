@@ -13,14 +13,6 @@ namespace GentelmansProject.Controllers
         {
             _logger = logger;
         }
-
-
-        public IActionResult AdminPage()
-        {
-            return View();
-        }
-
-        //[Authorize]
         public IActionResult Index()
         {
             return View();
