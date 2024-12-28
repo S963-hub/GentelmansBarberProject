@@ -15,7 +15,7 @@ namespace BarberShop.Controllers.Api
         {
             _context = context;
         }
-
+         
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Berber>>> GetBerbers()
         {
