@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using GentelmansProject.Data;
 
 #nullable disable
 
@@ -62,4 +63,72 @@ namespace GentelmansProject.Migrations
                 });
         }
     }
-}
+
+
+public static class BerberEndpoints
+{
+	public static void MapBerberEndpoints (this IEndpointRouteBuilder routes)
+    {
+        routes.MapGet("/api/Berber", async (ApplicationDbContext db) =>
+        {
+            return await db.Berbers.ToListAsync();
+        })
+        .WithName("GetAllBerbers")
+        .Produces<List<Berber>>(StatusCodes.Status200OK);
+
+        routes.MapGet("/api/Berber/{id}", async (int Id, ApplicationDbContext db) =>
+        {
+            return await db.Berbers.FindAsync(Id)
+                is Berber model
+                    ? Results.Ok(model)
+                    : Results.NotFound();
+        })
+        .WithName("GetBerberById")
+        .Produces<Berber>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
+
+        routes.MapPut("/api/Berber/{id}", async (int Id, Berber berber, ApplicationDbContext db) =>
+        {
+            var foundModel = await db.Berbers.FindAsync(Id);
+
+            if (foundModel is null)
+            {
+                return Results.NotFound();
+            }
+
+            db.Update(berber);
+
+            await db.SaveChangesAsync();
+
+            return Results.NoContent();
+        })
+        .WithName("UpdateBerber")
+        .Produces(StatusCodes.Status404NotFound)
+        .Produces(StatusCodes.Status204NoContent);
+
+        routes.MapPost("/api/Berber/", async (Berber berber, ApplicationDbContext db) =>
+        {
+            db.Berbers.Add(berber);
+            await db.SaveChangesAsync();
+            return Results.Created($"/Berbers/{berber.Id}", berber);
+        })
+        .WithName("CreateBerber")
+        .Produces<Berber>(StatusCodes.Status201Created);
+
+
+        routes.MapDelete("/api/Berber/{id}", async (int Id, ApplicationDbContext db) =>
+        {
+            if (await db.Berbers.FindAsync(Id) is Berber berber)
+            {
+                db.Berbers.Remove(berber);
+                await db.SaveChangesAsync();
+                return Results.Ok(berber);
+            }
+
+            return Results.NotFound();
+        })
+        .WithName("DeleteBerber")
+        .Produces<Berber>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
+    }
+}}

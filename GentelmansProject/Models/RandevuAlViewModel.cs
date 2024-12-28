@@ -12,6 +12,7 @@ namespace GentelmansProject.Models
         [DataType(DataType.Date)]
         public DateTime RandevuTarihi { get; set; }
 
+
         [Required]
         [DataType(DataType.Time)]
         public string RandevuSaati { get; set; }
@@ -20,5 +21,6 @@ namespace GentelmansProject.Models
         public string Notlar { get; set; }
 
         public decimal ToplamFiyat { get; set; } // Toplam Fiyat
+        public int SalonId { get; internal set; }
     }
 }

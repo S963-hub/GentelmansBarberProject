@@ -3,6 +3,7 @@ using GentelmansProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace GentelmansProject.Controllers
@@ -19,31 +20,38 @@ namespace GentelmansProject.Controllers
             _userManager = userManager;
         }
 
-        // Randevu Sayfası (Get)
+        [HttpGet]
         public async Task<IActionResult> RandevuAl()
         {
-            var berberler = await _context.Berbers.ToListAsync();
-            var servisler = await _context.Servises.ToListAsync();
-
-            if (!berberler.Any())
+            ViewBag.SalonId = null;
+            var salonlar = new List<SelectListItem>
             {
-                ModelState.AddModelError("", "Henüz hiçbir berber eklenmemiş.");
-            }
-
-            if (!servisler.Any())
-            {
-                ModelState.AddModelError("", "Henüz hiçbir servis eklenmemiş.");
-            }
-
-            ViewBag.Berberler = berberler;
-            ViewBag.Servisler = servisler;
+                new SelectListItem { Value = "1", Text = "Salon 1" },
+                new SelectListItem { Value = "2", Text = "Salon 2" },
+                new SelectListItem { Value = "3", Text = "Salon 3" }
+            };
+            ViewBag.Salonlar = salonlar;
 
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SalonSecim(int salonSecimi)
+        {
+            ViewBag.SalonId = salonSecimi;
+            await LoadViewBagData(salonSecimi);
+
+            var model = new RandevuAlViewModel();
+            model.SalonId = salonSecimi;
+
+            return View("RandevuAl", model);
+        }
         [HttpPost]
         public async Task<IActionResult> RandevuAl(RandevuAlViewModel model)
         {
+            int salonSecimi = model.SalonId;
+            ViewBag.SalonId = salonSecimi;
+
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -53,58 +61,26 @@ namespace GentelmansProject.Controllers
                 }
                 var kullaniciId = user.Id;
 
-                // Geçmiş tarihler kontrolü
                 if (model.RandevuTarihi < DateTime.Today)
                 {
                     ModelState.AddModelError("", "Geçmiş bir tarihe randevu alınamaz.");
-                    return View(model);
+                    await LoadViewBagData(salonSecimi);
+                    return RedirectToAction("RandevuAl");
                 }
 
-                // Seçilen saat dolu mu kontrol et
                 bool isAvailable = !await _context.Randevulars
                     .AnyAsync(r => r.RandevuTarihi == model.RandevuTarihi
                                 && r.RandevuSaati == model.RandevuSaati
                                 && r.BerberId == model.BerberId);
 
+
                 if (!isAvailable)
                 {
-                    ModelState.AddModelError("", "Seçilen saat başka bir kullanıcı tarafından alınmış.");
+                    ViewBag.Message = "Seçilen saat başka bir kullanıcı tarafından alınmış. Lütfen başka bir saat seçin.";
+                    //await LoadViewBagData(salonSecimi);
                     return View(model);
                 }
 
-                // Seçilen servislerin toplam fiyatını hesapla
-                decimal toplamFiyat = 0;
-                List<Servis> selectedServices = new List<Servis>();
-                if (!string.IsNullOrEmpty(model.ServisIds))
-                {
-                    try
-                    {
-                        var servisIds = model.ServisIds
-                            .Split(',')
-                            .Where(id => !string.IsNullOrWhiteSpace(id))
-                            .Select(int.Parse)
-                            .ToList();
-
-                        selectedServices = await _context.Servises
-                            .Where(s => servisIds.Contains(s.Id))
-                            .ToListAsync();
-
-                        toplamFiyat = selectedServices.Sum(s => s.HizmetFiyat);
-
-                        // Seçilen servisleri ve toplam fiyatı ViewBag içinde sakla
-                        ViewBag.SelectedServices = selectedServices;
-                        ViewBag.ToplamFiyat = toplamFiyat;
-                    }
-                    catch (Exception ex)
-                    {
-                        ModelState.AddModelError("", "Servis fiyatları hesaplanırken bir hata oluştu: " + ex.Message);
-                        return View(model);
-                    }
-                }
-
-                model.ToplamFiyat = toplamFiyat;
-
-                // Randevuyu oluştur ve kaydet
                 var randevu = new Randevular
                 {
                     KullaniciId = kullaniciId,
@@ -121,31 +97,83 @@ namespace GentelmansProject.Controllers
 
                 return RedirectToAction("Randevularim");
             }
+            else
+            {
+                ModelState.AddModelError("", "Not kismi bos olamaz.");
 
-            // ViewBag için gerekli verileri tekrar yükleyin
-            ViewBag.Berberler = await _context.Berbers.ToListAsync();
-            ViewBag.Servisler = await _context.Servises.ToListAsync();
-
+            }
+            await LoadViewBagData(salonSecimi);
             return View(model);
         }
 
-        // Kullanıcının randevularını listeleme
+        private async Task LoadViewBagData(int salonSecimi)
+        {
+            if (salonSecimi == 1)
+            {
+                ViewBag.Berberler = await _context.Berbers.ToListAsync();
+                ViewBag.Servisler = await _context.Servises.ToListAsync();
+            }
+            else if (salonSecimi == 2)
+            {
+                ViewBag.Berberler = await _context.Berbers2.ToListAsync();
+                ViewBag.Servisler = await _context.Servises2.ToListAsync();
+            }
+            else if (salonSecimi == 3)
+            {
+                ViewBag.Berberler = await _context.Berbers3.ToListAsync();
+                ViewBag.Servisler = await _context.Servises3.ToListAsync();
+            }
+            else
+            {
+                ViewBag.Berberler = new List<Berber>();
+                ViewBag.Servisler = new List<Servis>();
+            }
+            ViewBag.Salonlar = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "1", Text = "Salon 1" },
+                new SelectListItem { Value = "2", Text = "Salon 2" },
+                new SelectListItem { Value = "3", Text = "Salon 3" }
+            };
+        }
+
         public async Task<IActionResult> Randevularim()
         {
-            // Giriş yapan kullanıcı kimliği
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return Unauthorized(); // Kullanıcı giriş yapmamış
+                return Unauthorized(); 
             }
 
-            var userId = user.Id; // Kullanıcı ID'sini al
+            var userId = user.Id; 
             var randevular = await _context.Randevulars
-                .Include(r => r.Berber) // Berber tablosunu ekliyoruz
-                .Where(r => r.KullaniciId == userId) // Kullanıcı ID'sine göre filtreleme
+                .Include(r => r.Berber) 
+                .Where(r => r.KullaniciId == userId) 
                 .ToListAsync();
 
-            return View(randevular); // Model'i View'e gönderiyoruz
+            return View(randevular); 
         }
+
+        [HttpPost]
+        public IActionResult RandevuSil(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest("Geçersiz ID");
+            }
+
+            var randevu = _context.Randevulars.FirstOrDefault(r => r.Id == id);
+            if (randevu == null)
+            {
+                return NotFound("Randevu bulunamadı.");
+            }
+
+            _context.Randevulars.Remove(randevu);
+            _context.SaveChanges();
+
+            return RedirectToAction("Randevularim");
+        }
+
+
+
     }
 }

@@ -13,6 +13,10 @@ namespace GentelmansProject.Controllers
         {
             _logger = logger;
         }
+        public IActionResult iletisim()
+        {
+            return View();  
+        }
         public IActionResult Index()
         {
             return View();
@@ -22,6 +26,7 @@ namespace GentelmansProject.Controllers
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

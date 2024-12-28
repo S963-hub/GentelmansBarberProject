@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace GentelmansProject.Models
 {
@@ -18,7 +19,7 @@ namespace GentelmansProject.Models
         public string KullaniciId { get; set; } = string.Empty;
 
         [Required]
-        public string ServisIds { get; set; } = string.Empty; // Virgülle ayrılmış servis ID'leri
+        public string ServisIds { get; set; }  // Virgülle ayrılmış servis ID'leri
 
         [Required]
         [DataType(DataType.Date)]
@@ -33,5 +34,6 @@ namespace GentelmansProject.Models
         public decimal ToplamFiyat { get; set; } // Hesaplanan toplam fiyat
 
         public string Notlar { get; set; } = string.Empty;
+        public bool Onaylandi { get; internal set; }
     }
 }

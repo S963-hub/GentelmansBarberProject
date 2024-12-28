@@ -1,0 +1,40 @@
+﻿@model IEnumerable<GentelmansProject.Models.Randevular>
+@{
+    Layout = "Nav";
+}
+
+<!Doctype html>
+<html>
+   <head>
+    <link rel="stylesheet" href="/css/onay.css" />
+
+   </head>
+
+<body style="background-color:#495057">
+    <h2 style="color:#f8f9fa">Onaylanan Randevular</h2>
+
+    <table class="table" style=" width:88% ">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Randevu Tarihi</th>
+                <th>Toplam Fiyat</th>
+                <th>Notlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var randevu in Model)
+            {
+                <tr>
+                    <td>@randevu.Id</td>
+                    <td>@randevu.RandevuTarihi</td>
+                    <td>@randevu.ToplamFiyat</td>
+                    <td>@randevu.Notlar</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+   </body>
+</html>
+

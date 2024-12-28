@@ -23,11 +23,17 @@
         {
             <a class="nav-link" href="@Url.Action("AdminDashboard", "Admin")">Admin Panel</a>
         }
+        @if (User.IsInRole("berber") || User.IsInRole("BERBER") || User.IsInRole("Berber"))
+        {
+           <li class="nav-item"> <a class="nav-link" href="@Url.Action("OnayBekleyenRandevular", "Berber")">Mevcut Randeular</a></li>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("OnaylananRandevular", "Berber")">Onaylanan Randevular</a></li>
+
+        }
 
         @if (User.IsInRole("KULLANCI") || User.IsInRole("kullanici"))
         {
             <li class="nav-item"><a class="nav-link" asp-controller="RandevuAl" asp-action="RandevuAl">Randevu Al</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Servis</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="RandevuAl" asp-action="Randevularim">Randevularım</a></li>
         }
     }
     else

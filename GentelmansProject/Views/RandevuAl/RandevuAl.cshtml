@@ -1,101 +1,185 @@
-﻿@model GentelmansProject.Models.RandevuAlViewModel
+﻿@{
+    Layout = "_Layout";
+}
 
-<div class="container mt-4">
-    <h2>Randevu Al</h2>
-    <form asp-action="RandevuAl" method="post" id="appointmentForm">
-        <div class="form-group">
-            <label for="berber">Berber Seçin:</label>
-            @if (ViewBag.Berberler != null)
-            {
-                <select id="berber" name="BerberId" class="form-control" required>
-                    @foreach (var berber in ViewBag.Berberler)
-                    {
-                        <option value="@berber.Id">@berber.Name</option>
-                    }
-                    }
-                </select>
-            }
-            else
-            {
-                <p>Henüz sistemde kayıtlı bir berber bulunmamaktadır.</p>
-            }
-        </div>
-
-        <label for="servisler">Servisler:</label>
-        <div class="form-group mt-3" id="servisler">
-            @if (ViewBag.Servisler != null)
-            {
-                @foreach (var servis in ViewBag.Servisler)
-                {
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="ServisIds" value="@servis.Id" data-fiyat="@servis.HizmetFiyat" id="servis-@servis.Id" />
-                        <label class="form-check-label" for="servis-@servis.Id">@servis.Name (@servis.HizmetFiyat.ToString("C"))</label>
-                    </div>
-                }
-            }
-            else
-            {
-                <p>Henüz sistemde kayıtlı bir servis bulunmamaktadır.</p>
-            }
-        </div>
-
-        <div class="form-group mt-3">
-            <label for="tarih">Tarih:</label>
-            <input type="date" id="tarih" name="RandevuTarihi" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" required />
-        </div>
-
-        <div class="form-group mt-3">
-            <label for="saat">Saat:</label>
-            <select id="saat" name="RandevuSaati" class="form-control" required>
-                @for (int hour = 9; hour <= 18; hour++)
-                {
-                    <option value="@hour:00">@hour:00</option>
-                }
-                }
-            </select>
-        </div>
-
-        <div class="form-group mt-3">
-            <label for="notlar">Notlar:</label>
-            <textarea id="notlar" name="Notlar" class="form-control"></textarea>
-        </div>
-
-        <div class="form-group mt-3">
-            <label for="toplamFiyat">Toplam Fiyat:</label>
-            <input type="text" id="toplamFiyat" name="ToplamFiyat" class="form-control" readonly />
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-3">Randevu Al</button>
-    </form>
-</div>
-
-<script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const checkboxes = document.querySelectorAll('input[name="ServisIds"]');
-        const toplamFiyatInput = document.getElementById('toplamFiyat');
-
-        function updateToplamFiyat() {
-            let toplamFiyat = 0;
-            checkboxes.forEach(function (checkbox) {
-                if (checkbox.checked) {
-                    toplamFiyat += parseFloat(checkbox.getAttribute('data-fiyat'));
-                }
-            });
-            toplamFiyatInput.value = toplamFiyat.toFixed(2); // TL eklemeyi kaldırdım
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randevu Al</title>
+    <link rel="stylesheet" href="~/css/RandevuAl.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Randevu Al</h2>
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Message
+            </div>
         }
+        <form asp-action="RandevuAl" method="post" id="appointmentForm">
+            @if (ViewBag.SalonId == null)
+            {
+                <div class="form-group">
+                    <label for="salon">Salon Seçin:</label>
+                    <select id="salon" name="SalonSecimi" class="form-control" required onchange="window.location.href='@Url.Action("SalonSecim", "RandevuAl")?salonSecimi=' + this.value;">
+                        <option value="">Salon Seçin</option>
+                        @foreach (var salon in ViewBag.Salonlar)
+                        {
+                            <option value="@salon.Value">@salon.Text</option>
+                        }
+                    </select>
+                </div>
+            }
+            else
+            {
+                <input type="hidden" name="SalonId" value="@ViewBag.SalonId" />
 
-        checkboxes.forEach(function (checkbox) {
-            checkbox.addEventListener('change', updateToplamFiyat);
+                <div class="form-group mt-3">
+                    <label for="berber">Berber Seçin:</label>
+                    @if (ViewBag.Berberler != null)
+                    {
+                        <select id="berber" name="BerberId" class="form-control" required>
+                            @foreach (var berber in ViewBag.Berberler)
+                            {
+                                <option value="@berber.Id">@berber.Name</option>
+                            }
+                        </select>
+                    }
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="servisler">Servisler:</label>
+                    <div class="form-group" id="servisler">
+                        @if (ViewBag.Servisler != null)
+                        {
+                            @foreach (var servis in ViewBag.Servisler)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="ServisIds" value="@servis.Id" data-fiyat="@servis.HizmetFiyat" id="servis-@servis.Id" />
+                                    <label class="form-check-label" for="servis-@servis.Id">@servis.Name (@servis.HizmetFiyat.ToString("C"))</label>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="tarih">Tarih:</label>
+                    <input type="date" id="tarih" name="RandevuTarihi" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" required />
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="saat">Saat:</label>
+                    <select id="saat" name="RandevuSaati" class="form-control" required>
+                        @for (int hour = 9; hour <= 18; hour++)
+                        {
+                            <option value="@hour:00">@hour:00</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="notlar">Notlar:</label>
+                    <textarea id="notlar" name="Notlar" class="form-control"></textarea>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="toplamFiyat">Toplam Fiyat:</label>
+                    <input type="text" id="toplamFiyat" name="ToplamFiyat" class="form-control" readonly />
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Randevu Al</button>
+            }
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxes = document.querySelectorAll('input[name="ServisIds"]');
+            const toplamFiyatInput = document.getElementById('toplamFiyat');
+            const berberSelect = document.getElementById('berber');
+            const notlarInput = document.getElementById('notlar');
+
+            function updateToplamFiyat() {
+                let toplamFiyat = 0;
+                checkboxes.forEach(function (checkbox) {
+                    if (checkbox.checked) {
+                        toplamFiyat += parseFloat(checkbox.getAttribute('data-fiyat'));
+                    }
+                });
+                toplamFiyatInput.value = toplamFiyat.toFixed(2);
+            }
+
+            function updateBerberSelection() {
+                let selectedServices = Array.from(checkboxes).filter(checkbox => checkbox.checked).map(checkbox => checkbox.value);
+
+                berberSelect.value = "";
+
+                if (selectedServices.includes("1")) {
+                    berberSelect.value = "1";
+                } else if (selectedServices.includes("2")) {
+                    berberSelect.value = "2";
+                }
+                else if (selectedServices.includes("3")) {
+                    berberSelect.value = "3";
+                }
+                else if (selectedServices.includes("4")) {
+                    berberSelect.value = "4";
+                }
+            }
+
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', function () {
+                    updateToplamFiyat();
+                    updateBerberSelection();
+                });
+            });
+
+            document.getElementById('appointmentForm').addEventListener('submit', function (event) {
+                let selectedServiceIds = Array.from(checkboxes)
+                    .filter(checkbox => checkbox.checked)
+                    .map(checkbox => checkbox.value)
+                    .join(',');
+
+                const servisIdsInput = document.createElement('input');
+                servisIdsInput.type = 'hidden';
+                servisIdsInput.name = 'ServisIds';
+                servisIdsInput.value = selectedServiceIds;
+                this.appendChild(servisIdsInput);
+
+                toplamFiyatInput.disabled = false;
+
+                const tarihInput = document.getElementById('tarih').value;
+                const saatInput = document.getElementById('saat').value;
+
+                // Notlar kontrolü
+                if (notlarInput.value.trim() === "") {
+                    event.preventDefault();
+                    alert("Lütfen notlar kısmını doldurunuz.");
+                    return;
+                }
+
+                fetch(`/RandevuAl/CheckAvailability?tarih=${tarihInput}&saat=${saatInput}&berberId=${berberSelect.value}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.available) {
+                            event.preventDefault();
+                            document.getElementById('appointmentForm').insertAdjacentHTML('afterbegin', `
+                                        <div class="alert alert-danger" role="alert">
+                                            Seçtiğiniz saat başka bir kullanıcı tarafından alınmış. Lütfen üstte Randevu Al butonuna basınız.
+                                        </div>
+                                    `);
+
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+
+            updateToplamFiyat();
         });
-
-        document.getElementById('appointmentForm').addEventListener('submit', function (event) {
-            toplamFiyatInput.disabled = false; // Toplam fiyat input'unu gönderilebilir hale getir
-        });
-
-        updateToplamFiyat(); // Sayfa yüklendiğinde toplam fiyatı güncelle
-    });
-
-
-
-</script>
+    </script>
+</body>
+</html>

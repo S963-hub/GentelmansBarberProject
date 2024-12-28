@@ -128,7 +128,7 @@ namespace GentelmansProject.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Kullancı Adı veya Şifre Yanlış.");
                     return Page();
                 }
             }

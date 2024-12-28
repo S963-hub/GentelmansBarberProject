@@ -9,6 +9,4 @@
         public string UzmanlikAlani { get; set; } = string.Empty;
 
     }
-
-
 }

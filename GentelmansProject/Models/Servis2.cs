@@ -1,4 +1,6 @@
-﻿namespace GentelmansProject.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GentelmansProject.Models
 {
     public class Servis2
     {

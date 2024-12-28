@@ -1,0 +1,57 @@
+﻿@model IEnumerable<GentelmansProject.Models.Randevular>
+
+@{
+    Layout = "Nav";
+}
+
+
+<!Doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/onay.css" />
+
+</head>
+
+<body style="background-color:#495057">
+
+    <h2 style="color:#f8f9fa">Randevular Listesi</h2>
+
+<table class="table" style=" width:88% ;background-color:#495057">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Randevu Tarihi</th>
+            <th>Toplam Fiyat</th>
+            <th>Notlar</th>  
+            <th>işlemler</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var randevu in Model)
+        {
+            <tr>
+                <td>@randevu.Id</td>
+                <td>@randevu.RandevuTarihi</td>
+                <td>@randevu.Notlar</td>
+                <td>@randevu.ToplamFiyat</td>
+                <td>
+                    @if (!randevu.Onaylandi)
+                    {
+                        <form asp-action="Onayla" asp-controller="Berber" method="post">
+                            <input type="hidden" name="id" value="@randevu.Id" />
+                            <button type="submit" class="btn btn-success">Onayla</button>
+                        </form>
+                        <form asp-action="Sil" asp-controller="Berber" method="post" style="display:inline-block;">
+                            <input type="hidden" name="id" value="@randevu.Id" />
+                            <button type="submit" class="btn btn-danger">iptal et</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+</body>
+</html>

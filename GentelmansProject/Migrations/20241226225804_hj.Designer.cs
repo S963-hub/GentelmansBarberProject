@@ -3,6 +3,7 @@ using System;
 using GentelmansProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GentelmansProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241226225804_hj")]
+    partial class hj
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,22 +331,22 @@ namespace GentelmansProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "29a186c5-499b-4559-bf6b-c5c3c7ccce4d",
-                            ConcurrencyStamp = "eed150eb-5a55-47c2-88eb-3eb0f05a53d3",
+                            Id = "f067c902-f8a8-481e-bef2-0b3d35ba0224",
+                            ConcurrencyStamp = "7f5b5915-f464-4df8-9ba0-8fed6bd9a60b",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "433badfc-6283-474a-b777-d4aa125c6424",
-                            ConcurrencyStamp = "e33fa9c9-155c-4d36-9c1c-790da4ca796e",
+                            Id = "40e2ca74-8266-43bf-b9a1-6f1c207b12dc",
+                            ConcurrencyStamp = "c1cbb2ce-64a3-47ae-a620-199ccb907e7a",
                             Name = "BERBER",
                             NormalizedName = "BERBER"
                         },
                         new
                         {
-                            Id = "d85dc5c0-22f0-4513-a65c-65099b606b7b",
-                            ConcurrencyStamp = "6f34a3d0-9f8d-44d3-bf2b-72b658396660",
+                            Id = "af413b73-7872-40de-9a18-6b9a1eb66745",
+                            ConcurrencyStamp = "015946c2-661c-4d7e-b3af-e13844d64938",
                             Name = "KULLANCI",
                             NormalizedName = "KULLANCI"
                         });
