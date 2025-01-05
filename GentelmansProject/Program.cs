@@ -2,6 +2,7 @@ using GentelmansProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using GentelmansProject.Controllers;
+using Microsoft.Extensions.Options;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,18 +16,27 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(ConnectionString); // PostgreSQL i�in do?ru y?ntem
 });
 
-
-// Kimlik Do?rulama Ayar? (Yaln?zca Biri)
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-    options.SignIn.RequireConfirmedAccount = false)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+{
+    options.SignIn.RequireConfirmedAccount = false;
+
+   /* // Parola kuralları:
+    options.Password.RequireDigit = false; // Sayı zorunluluğu
+    options.Password.RequireLowercase = false; // Küçük harf zorunluluğu
+    options.Password.RequireUppercase = false; // Büyük harf zorunluluğu
+    options.Password.RequireNonAlphanumeric = false; // Özel karakter zorunluluğu
+    options.Password.RequiredLength = 1;*/ // Minimum karakter uzunluğu
+})
+.AddRoles<IdentityRole>()
+.AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient<HairstyleService>();
 
 var app = builder.Build();
 
@@ -62,5 +72,16 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.MapBerberEndpoints();
+
+
+app.UseCors(policy =>
+    policy.AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader());
+
+app.UseCors(policy =>
+    policy.AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader());
 
 app.Run();

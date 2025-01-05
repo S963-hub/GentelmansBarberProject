@@ -1,0 +1,41 @@
+﻿@model HairStyleResult
+@{
+    ViewData["Title"] = "Hairstyle Changer";
+    Layout = "Nav";
+}
+
+<head>
+        <link rel="stylesheet"   href="/css/AI.css" asp-append-version="true" />
+
+</head>
+<div class="container mt-5">
+    <h2 class="text-center">Hairstyle Changer</h2>
+    <p class="text-center text-muted">Upload an image to try different hairstyles!</p>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            @TempData["Error"]
+        </div>
+    }
+
+    <form asp-action="ProcessImage" method="post" enctype="multipart/form-data" class="mt-4">
+        <div class="mb-3">
+            <label for="image" class="form-label">Choose an Image</label>
+            <input type="file" name="Image" id="image" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </form>
+
+    @if (ViewData["EditedImages"] != null)
+    {
+        <h3>Edited Images</h3>
+        <div class="row">
+            @foreach (var image in (List<string>)ViewData["EditedImages"])
+            {
+                <div class="col-md-4">
+                    <img src="data:image/jpeg;base64,@image" alt="Edited Image" class="img-fluid" />
+                </div>
+            }
+        </div>
+    }

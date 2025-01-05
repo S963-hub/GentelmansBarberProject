@@ -46,6 +46,8 @@ namespace GentelmansProject.Controllers
 
             return View("RandevuAl", model);
         }
+
+
         [HttpPost]
         public async Task<IActionResult> RandevuAl(RandevuAlViewModel model)
         {
@@ -76,7 +78,7 @@ namespace GentelmansProject.Controllers
 
                 if (!isAvailable)
                 {
-                    ViewBag.Message = "Seçilen saat başka bir kullanıcı tarafından alınmış. Lütfen başka bir saat seçin.";
+                    ViewBag.Message = "Seçilen saat başka bir kullanıcı tarafından alınmış. Lütfen Randevu Al sayfasina Tekrar Dönünüz.";
                     //await LoadViewBagData(salonSecimi);
                     return View(model);
                 }

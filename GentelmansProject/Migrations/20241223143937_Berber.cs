@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using GentelmansProject.Data;
+using GentelmansProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -63,8 +65,9 @@ namespace GentelmansProject.Migrations
                 });
         }
     }
+}
 
-
+    
 public static class BerberEndpoints
 {
 	public static void MapBerberEndpoints (this IEndpointRouteBuilder routes)
@@ -131,4 +134,4 @@ public static class BerberEndpoints
         .Produces<Berber>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
     }
-}}
+}

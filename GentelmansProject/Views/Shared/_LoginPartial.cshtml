@@ -18,10 +18,9 @@
             </ul>
         </li>
 
-
         @if (User.IsInRole("Admin") || User.IsInRole("ADMIN") || User.IsInRole("admin"))
         {
-            <a class="nav-link" href="@Url.Action("AdminDashboard", "Admin")">Admin Panel</a>
+            <li class="nav-item"><a class="nav-link" href="@Url.Action("AdminDashboard", "Admin")">Admin Panel</a></li>
         }
         @if (User.IsInRole("berber") || User.IsInRole("BERBER") || User.IsInRole("Berber"))
         {

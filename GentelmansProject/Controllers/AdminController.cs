@@ -29,22 +29,22 @@ namespace GentelmansProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int salonSecimi)
+        public IActionResult Index(Char salonSecimi)
         {
             ViewBag.SalonId = salonSecimi;
             return View("AdminDashboard");
         }
 
-        public async Task<IActionResult> CalisanListesi(int salonId)
+        public async Task<IActionResult> CalisanListesi(Char salonId)
         {
             ViewBag.SalonId = salonId;
             IEnumerable<Berber> calisanlar;
             switch (salonId)
             {
-                case 1:
+                case '1':
                     calisanlar = await _context.Berbers.ToListAsync();
                     break;
-                case 2:
+                case '2':
                     calisanlar = (await _context.Berbers2.ToListAsync()).Select(c => new Berber
                     {
                         Id = c.Id,
@@ -52,7 +52,7 @@ namespace GentelmansProject.Controllers
                         UzmanlikAlani = c.UzmanlikAlani
                     });
                     break;
-                case 3:
+                case '3':
                     calisanlar = (await _context.Berbers3.ToListAsync()).Select(c => new Berber
                     {
                         Id = c.Id,
@@ -67,29 +67,29 @@ namespace GentelmansProject.Controllers
             return View(calisanlar);
         }
 
-        public async Task<IActionResult> ServisleriYonet(int salonId)
+        public async Task<IActionResult> ServisleriYonet(Char salonId)
         {
             ViewBag.SalonId = salonId;
             IEnumerable<Servis> servisler;
             switch (salonId)
             {
-                case 1:
+                case '1':
                     servisler = await _context.Servises.ToListAsync();
                     break;
-                case 2:
+                case '2':
                     servisler = (await _context.Servises2.ToListAsync()).Select(s => new Servis
                     {
-                        Id = s.Id, // Burada `Id` sütununu kullanıyoruz
-                        Name = s.Name, // Burada `Ad` sütununu kullanıyoruz
+                        Id = s.Id, 
+                        Name = s.Name,
                         HizmetSuresi = s.HizmetSuresi,
                         HizmetFiyat = s.HizmetFiyat
                     });
                     break;
-                case 3:
+                case '3':
                     servisler = (await _context.Servises3.ToListAsync()).Select(s => new Servis
                     {
-                        Id = s.Id, // Burada `Id` sütununu kullanıyoruz
-                        Name = s.Name, // Burada `Ad` sütununu kullanıyoruz
+                        Id = s.Id,
+                        Name = s.Name,
                         HizmetSuresi = s.HizmetSuresi,
                         HizmetFiyat = s.HizmetFiyat
                     });
@@ -104,7 +104,7 @@ namespace GentelmansProject.Controllers
 
 
         [HttpGet]
-        public IActionResult CalisanEkleGuncelle(int? id, int salonId)
+        public IActionResult CalisanEkleGuncelle(int? id, char salonId)
         {
             ViewBag.SalonId = salonId;
             if (id == null)
@@ -116,10 +116,10 @@ namespace GentelmansProject.Controllers
                 Berber calisan = null;
                 switch (salonId)
                 {
-                    case 1:
+                    case '1':
                         calisan = _context.Berbers.Find(id);
                         break;
-                    case 2:
+                    case '2':
                         var berber2 = _context.Berbers2.Find(id);
                         if (berber2 != null)
                         {
@@ -131,7 +131,7 @@ namespace GentelmansProject.Controllers
                             };
                         }
                         break;
-                    case 3:
+                    case '3':
                         var berber3 = _context.Berbers3.Find(id);
                         if (berber3 != null)
                         {
@@ -159,13 +159,13 @@ namespace GentelmansProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CalisanEkleGuncelle(BerberViewModel model, int salonId)
+        public async Task<IActionResult> CalisanEkleGuncelle(BerberViewModel model, Char salonId)
         {
             if (ModelState.IsValid)
             {
                 switch (salonId)
                 {
-                    case 1:
+                    case '1':
                         var calisan1 = new Berber
                         {
                             Id = model.Id,
@@ -181,7 +181,7 @@ namespace GentelmansProject.Controllers
                             _context.Berbers.Update(calisan1);
                         }
                         break;
-                    case 2:
+                    case '2':
                         var calisan2 = new Berber2
                         {
                             Id = model.Id,
@@ -197,7 +197,7 @@ namespace GentelmansProject.Controllers
                             _context.Berbers2.Update(calisan2);
                         }
                         break;
-                    case 3:
+                    case '3':
                         var calisan3 = new Berber3
                         {
                             Id = model.Id,
@@ -220,15 +220,15 @@ namespace GentelmansProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> CalisanSil(int id, int salonId)
+        public async Task<IActionResult> CalisanSil(int id, char salonId)
         {
             Berber calisan = null;
             switch (salonId)
             {
-                case 1:
+                case '1':
                     calisan = await _context.Berbers.FindAsync(id);
                     break;
-                case 2:
+                case '2':
                     var berber2 = await _context.Berbers2.FindAsync(id);
                     if (berber2 != null)
                     {
@@ -240,7 +240,7 @@ namespace GentelmansProject.Controllers
                         };
                     }
                     break;
-                case 3:
+                case '3':
                     var berber3 = await _context.Berbers3.FindAsync(id);
                     if (berber3 != null)
                     {
@@ -259,13 +259,13 @@ namespace GentelmansProject.Controllers
             }
             switch (salonId)
             {
-                case 1:
+                case '1':
                     _context.Berbers.Remove(calisan);
                     break;
-                case 2:
+                case '2':
                     _context.Berbers2.Remove(await _context.Berbers2.FindAsync(id));
                     break;
-                case 3:
+                case '3':
                     _context.Berbers3.Remove(await _context.Berbers3.FindAsync(id));
                     break;
             }
@@ -273,7 +273,7 @@ namespace GentelmansProject.Controllers
             return RedirectToAction("CalisanListesi", new { salonId = salonId });
         }
         [HttpGet]
-        public IActionResult ServisEkleGuncelle(int? id, int salonId)
+        public IActionResult ServisEkleGuncelle(int? id, Char salonId)
         {
             ViewBag.SalonId = salonId;
             if (id == null)
@@ -285,10 +285,10 @@ namespace GentelmansProject.Controllers
                 Servis servis = null;
                 switch (salonId)
                 {
-                    case 1:
+                    case '1':
                         servis = _context.Servises.Find(id);
                         break;
-                    case 2:
+                    case '2':
                         var servis2 = _context.Servises2.Find(id);
                         if (servis2 != null)
                         {
@@ -301,7 +301,7 @@ namespace GentelmansProject.Controllers
                             };
                         }
                         break;
-                    case 3:
+                    case '3':
                         var servis3 = _context.Servises3.Find(id);
                         if (servis3 != null)
                         {
@@ -331,13 +331,13 @@ namespace GentelmansProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ServisEkleGuncelle(ServisViewModel model, int salonId)
+        public async Task<IActionResult> ServisEkleGuncelle(ServisViewModel model, Char salonId)
         {
             if (ModelState.IsValid)
             {
                 switch (salonId)
                 {
-                    case 1:
+                    case '1':
                         var servis1 = new Servis
                         {
                             Id = model.Id,
@@ -354,7 +354,7 @@ namespace GentelmansProject.Controllers
                             _context.Servises.Update(servis1);
                         }
                         break;
-                    case 2:
+                    case '2':
                         var servis2 = new Servis2
                         {
                             Id = model.Id,
@@ -371,7 +371,7 @@ namespace GentelmansProject.Controllers
                             _context.Servises2.Update(servis2);
                         }
                         break;
-                    case 3:
+                    case '3':
                         var servis3 = new Servis3
                         {
                             Id = model.Id,
@@ -395,15 +395,15 @@ namespace GentelmansProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> ServisSil(int id, int salonId)
+        public async Task<IActionResult> ServisSil(int id, char salonId)
         {
             Servis servis = null;
             switch (salonId)
             {
-                case 1:
+                case '1':
                     servis = await _context.Servises.FindAsync(id);
                     break;
-                case 2:
+                case '2':
                     var servis2 = await _context.Servises2.FindAsync(id);
                     if (servis2 != null)
                     {
@@ -416,7 +416,7 @@ namespace GentelmansProject.Controllers
                         };
                     }
                     break;
-                case 3:
+                case '3':
                     var servis3 = await _context.Servises3.FindAsync(id);
                     if (servis3 != null)
                     {
@@ -436,13 +436,13 @@ namespace GentelmansProject.Controllers
             }
             switch (salonId)
             {
-                case 1:
+                case '1':
                     _context.Servises.Remove(servis);
                     break;
-                case 2:
+                case '2':
                     _context.Servises2.Remove(await _context.Servises2.FindAsync(id));
                     break;
-                case 3:
+                case '3':
                     _context.Servises3.Remove(await _context.Servises3.FindAsync(id));
                     break;
             }

@@ -329,22 +329,22 @@ namespace GentelmansProject.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "29a186c5-499b-4559-bf6b-c5c3c7ccce4d",
-                            ConcurrencyStamp = "eed150eb-5a55-47c2-88eb-3eb0f05a53d3",
+                            Id = "c8544b4e-872d-45a5-85b1-e06c0cac8642",
+                            ConcurrencyStamp = "a0e77f28-b2cb-4d6c-81d5-818306fdfd6d",
                             Name = "ADMIN",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "433badfc-6283-474a-b777-d4aa125c6424",
-                            ConcurrencyStamp = "e33fa9c9-155c-4d36-9c1c-790da4ca796e",
+                            Id = "73712b33-bb29-4413-bec9-cfa28c106873",
+                            ConcurrencyStamp = "d690637d-b381-426a-9f33-2e77259fa049",
                             Name = "BERBER",
                             NormalizedName = "BERBER"
                         },
                         new
                         {
-                            Id = "d85dc5c0-22f0-4513-a65c-65099b606b7b",
-                            ConcurrencyStamp = "6f34a3d0-9f8d-44d3-bf2b-72b658396660",
+                            Id = "460a0637-7c1b-48f6-afb9-3e00acca34fb",
+                            ConcurrencyStamp = "0e564d1f-1ff8-4fb2-b826-3b55f9fe0e14",
                             Name = "KULLANCI",
                             NormalizedName = "KULLANCI"
                         });

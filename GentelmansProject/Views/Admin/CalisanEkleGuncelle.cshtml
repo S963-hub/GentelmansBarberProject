@@ -10,7 +10,7 @@
 </head>
 
 <div class="container mt-4">
-    <h2>@(Model.Id == 0 ? "Yeni Çalışan Ekle (Salon @ViewBag.SalonId)" : "Çalışanı Güncelle (Salon @ViewBag.SalonId)")</h2>
+    <h2>@(Model.Id == 0 ? "Yeni Çalışan Ekle " : "Çalışanı Güncelle (Salon @ViewBag.SalonId)")</h2>
     <form asp-action="CalisanEkleGuncelle" method="post">
         <input type="hidden" name="salonId" value="@ViewBag.SalonId" />
         <div class="form-group">
